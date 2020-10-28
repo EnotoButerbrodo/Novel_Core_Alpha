@@ -19,29 +19,11 @@ namespace Novel_Core_Alpha
     {
         string contentFolderPath;//Хранение пути до папки контента
         string contentFolderName = "NCE_content";//Название папки контента
-        int directorySize = 0;
         string curr_scene_path = "None";
         int selected_frame = 0, selected_buff = 0;
         //Создаем нужную папку в регистре, если её нету и так же переменную, чтобы работать с регистром по этому адресу
         RegistryKey AddContentKey = Registry.CurrentUser.CreateSubKey(@"Software\NCE\AddContent");
-
-        class DATA_LIST
-        {
-            public DATA_LIST() { }
-
-            public DATA_LIST(string path, string name = "Non")
-            {
-                this.name = name;
-                this.path = path;
-            }
-            public string path;
-            public string name;
-            public void SetName(string name) => this.name = name;
-            public void SetPath(string path) => this.path = path;
-
-        }
-
-
+        //
         List<string> backgrounds = new List<string>(); //Содержит список доступных фонов
         List<string> texts = new List<string>(); //Список допступных текстов
         List<Frame> curr_scene = new List<Frame>();//Этот лист содержит текущую сцену
