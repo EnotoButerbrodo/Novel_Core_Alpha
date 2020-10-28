@@ -42,10 +42,10 @@ namespace Novel_Core_Alpha
         }
 
 
-        List<string> backgrounds = new List<string>();
-        List<string> texts = new List<string>();
+        List<string> backgrounds = new List<string>(); //Содержит список доступных фонов
+        List<string> texts = new List<string>(); //Список допступных текстов
         List<Frame> curr_scene = new List<Frame>();//Этот лист содержит текущую сцену
-        List<PictureBox> curr_scene_frames = new List<PictureBox>();
+        List<PictureBox> curr_scene_frames = new List<PictureBox>(); //Храняться кадры для отображения
 
         BinaryFormatter formatter = new BinaryFormatter();//Эта штука для сериализации
 
@@ -159,7 +159,7 @@ namespace Novel_Core_Alpha
             }
            // ReadBackgroundsFiles();
         }
-        //Создание папки контента
+        //Создание новой пустой папки контента
         private string CreateContentFolder(string path)
         {
             path += $"\\{contentFolderName}";
@@ -171,7 +171,7 @@ namespace Novel_Core_Alpha
 
             return path;
         }
-
+        //Добавить задний фон в библиотеку
         private void Add_background_button_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog opd = new OpenFileDialog())
@@ -180,12 +180,9 @@ namespace Novel_Core_Alpha
                 opd.Multiselect = true;
                 opd.Title = "Выбирай файлы";
                 string newPath; //Храним новый путь до файла
-
                 try
                 {
                     if (opd.ShowDialog() == DialogResult.OK) {
-
-
                         foreach (string path in opd.FileNames)
                         {
                             try
@@ -194,18 +191,12 @@ namespace Novel_Core_Alpha
                                 File.Copy(path, newPath);
                                 try
                                 {
-                                    //backgrounds_image_list.Add(new DATA_LIST());//Добавляем в список новый элемент
-                                    //Записываем в новый элемент путь и имя файла
-                                    //backgrounds_image_list[backgrounds_image_list.Count - 1].path = newPath;
-                                    //backgrounds_image_list[backgrounds_image_list.Count - 1].name = Path.GetFileName(newPath);
-                                    //Добавляем в список отображения имя этого нового элемента
-                                    //Backgrounds_list.Items.Add(backgrounds_image_list[backgrounds_image_list.Count - 1].name);
                                     backgrounds.Add(newPath);
                                     Backgrounds_list.Items.Add(Path.GetFileName(backgrounds[backgrounds.Count - 1]));
                                 }
                                 catch
                                 {
-                                    MessageBox.Show("Не удалось добавить list!!!",
+                                    MessageBox.Show("Не удалось добавить файл в библиотеку",
                                       "Ошибка",
                                       MessageBoxButtons.OK,
                                       MessageBoxIcon.Error
@@ -214,7 +205,7 @@ namespace Novel_Core_Alpha
                             }
                             catch
                             {
-                                MessageBox.Show("Не удалось добавить файл!!!",
+                                MessageBox.Show("Не удалось добавить файл",
                                       "Ошибка",
                                       MessageBoxButtons.OK,
                                       MessageBoxIcon.Error
@@ -233,7 +224,7 @@ namespace Novel_Core_Alpha
                 }
             }
         }
-
+        //Обработка выбора элемента списка с задними фонами
         async private void Backgrounds_list_SelectedIndexChanged(object sender, EventArgs e)
         {
             Delete_background_button.Enabled = true;//Активируем кнопку удалить фон
@@ -250,12 +241,10 @@ namespace Novel_Core_Alpha
                         Backgrounds_previe.Image = Image.FromStream(stream);
                     }
                 });
-                
             }
             catch { };
-            
         }
-
+        //При обновлении путь до папки контента заново считываем все доступные файлы
         private void ContentFolderPathStoke_TextChanged(object sender, EventArgs e)
         {
             ReadBackgroundsFiles();
