@@ -78,6 +78,7 @@ namespace Novel_Core_Alpha
             }
             SaveScene_menu_button.Enabled = false;
             SetBackground_button.Enabled = false;
+            Delete_background_button.Enabled = false;//Деактивируем кнопку
 
         }
         
@@ -249,28 +250,21 @@ namespace Novel_Core_Alpha
         {
             ReadBackgroundsFiles();
         }
-
-        private void Delete_background_button_Paint(object sender, PaintEventArgs e)
-        {
-            if (Backgrounds_list.SelectedIndex == -1) Delete_background_button.Enabled = false;//Деактивируем кнопку
-        }
-
+        //Кнопка удаления заднего фона из коллекции
         private void Delete_background_button_Click(object sender, EventArgs e)
         {
             int buff = Backgrounds_list.SelectedIndex;//Сохраняем текущий выбранный индекс
             Backgrounds_previe.Image = Backgrounds_previe.InitialImage;//На превью ставим картинку ожидания
   
-            File.Delete(backgrounds[buff]);
-            backgrounds.RemoveAt(buff);
-            Backgrounds_list.Items.RemoveAt(buff);
+            File.Delete(backgrounds[buff]); //Удаляем файл из папки
+            backgrounds.RemoveAt(buff);//Удаляем из списка ресурсов
+            Backgrounds_list.Items.RemoveAt(buff); //Удаляем из списка на отображение
             if (Backgrounds_list.SelectedIndex >= 0)
                 Backgrounds_list.SelectedIndex--;
             else
                 Backgrounds_list.SelectedIndex = 0;
-
         }
-
-
+        //Установить картинку как фон фрейма
         private void SetBackground_button_Click(object sender, EventArgs e)
         {
             if (Backgrounds_list.SelectedIndex != -1)
@@ -281,8 +275,7 @@ namespace Novel_Core_Alpha
                 DisplayFrameInfo();
             }
         }
-
-        //Сoхранить сцену
+        //Сoхранить сцену в файл
         private void saveScene_menu_button_Click(object sender, EventArgs e)
         {
                 using (FileStream fs = new FileStream(curr_scene_path, FileMode.Create))
@@ -290,16 +283,16 @@ namespace Novel_Core_Alpha
                     formatter.Serialize(fs, curr_scene);
                 }
         }
-
+        //Открытие сохраненной сцены
         private void OpenScene_menu_button_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog opd = new OpenFileDialog())
             {
-                selected_frame = selected_buff = 0;
+                selected_frame = selected_buff = 0; //Обнуление текущего выбранного кадра
                 SelectedFrame.Value = 0;
                 Frame_previe.Items.Clear();
                 opd.Filter = "Сцена|*.scene";
-                opd.Title = "Выбирай файлы";
+                opd.Title = "Выбирай файл";
                 opd.InitialDirectory = $"{contentFolderPath}\\Scene";
                 if(opd.ShowDialog() == DialogResult.OK)
                 {
@@ -312,9 +305,6 @@ namespace Novel_Core_Alpha
                 }
                 curr_scene_label.Text = $"Текущая сцена: {Path.GetFileNameWithoutExtension(opd.FileName)}";
                 LoadListToFramesPanel();
-                
-
-
             }
         }
 

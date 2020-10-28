@@ -112,7 +112,6 @@
             this.Delete_background_button.Text = "Удалить";
             this.Delete_background_button.UseVisualStyleBackColor = false;
             this.Delete_background_button.Click += new System.EventHandler(this.Delete_background_button_Click);
-            this.Delete_background_button.Paint += new System.Windows.Forms.PaintEventHandler(this.Delete_background_button_Paint);
             // 
             // label3
             // 
