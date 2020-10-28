@@ -47,7 +47,6 @@ namespace Novel_Core_Alpha
                     {
                         contentFolderPath = buff.ToString();
                         ContentFolderPathStoke.Text = contentFolderPath;
-                        directorySize = Directory.GetFiles($"{contentFolderPath}\\Backgrounds").Length;
                     }
                     else
                     {
