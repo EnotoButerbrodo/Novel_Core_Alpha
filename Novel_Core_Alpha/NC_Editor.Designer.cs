@@ -33,7 +33,7 @@
             this.SetBackground_button = new System.Windows.Forms.Button();
             this.Delete_background_button = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
-            this.BackgroundImage_previe = new System.Windows.Forms.PictureBox();
+            this.Backgrounds_previe = new System.Windows.Forms.PictureBox();
             this.Add_background_button = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.Backgrounds_list = new System.Windows.Forms.ListBox();
@@ -50,14 +50,14 @@
             this.SaveScene_menu_button = new System.Windows.Forms.ToolStripMenuItem();
             this.SaveAsNewScene_menu_button = new System.Windows.Forms.ToolStripMenuItem();
             this.FramesPanel = new System.Windows.Forms.Panel();
-            this.CurrFrame_previe = new System.Windows.Forms.ListBox();
+            this.Frame_previe = new System.Windows.Forms.ListBox();
             this.SelectedFrame = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.AddFrame_button = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.AddBackground_tab.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.BackgroundImage_previe)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Backgrounds_previe)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SceneEditor_previe)).BeginInit();
@@ -79,7 +79,7 @@
             this.AddBackground_tab.Controls.Add(this.SetBackground_button);
             this.AddBackground_tab.Controls.Add(this.Delete_background_button);
             this.AddBackground_tab.Controls.Add(this.label3);
-            this.AddBackground_tab.Controls.Add(this.BackgroundImage_previe);
+            this.AddBackground_tab.Controls.Add(this.Backgrounds_previe);
             this.AddBackground_tab.Controls.Add(this.Add_background_button);
             this.AddBackground_tab.Controls.Add(this.groupBox1);
             this.AddBackground_tab.Location = new System.Drawing.Point(4, 22);
@@ -123,16 +123,16 @@
             this.label3.TabIndex = 8;
             this.label3.Text = "Предпросмотр";
             // 
-            // BackgroundImage_previe
+            // Backgrounds_previe
             // 
-            this.BackgroundImage_previe.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.BackgroundImage_previe.InitialImage = global::Novel_Core_Alpha.Properties.Resources.Image_wait;
-            this.BackgroundImage_previe.Location = new System.Drawing.Point(13, 16);
-            this.BackgroundImage_previe.Name = "BackgroundImage_previe";
-            this.BackgroundImage_previe.Size = new System.Drawing.Size(225, 121);
-            this.BackgroundImage_previe.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.BackgroundImage_previe.TabIndex = 3;
-            this.BackgroundImage_previe.TabStop = false;
+            this.Backgrounds_previe.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Backgrounds_previe.InitialImage = global::Novel_Core_Alpha.Properties.Resources.Image_wait;
+            this.Backgrounds_previe.Location = new System.Drawing.Point(13, 16);
+            this.Backgrounds_previe.Name = "Backgrounds_previe";
+            this.Backgrounds_previe.Size = new System.Drawing.Size(225, 121);
+            this.Backgrounds_previe.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.Backgrounds_previe.TabIndex = 3;
+            this.Backgrounds_previe.TabStop = false;
             // 
             // Add_background_button
             // 
@@ -294,16 +294,16 @@
             this.FramesPanel.Size = new System.Drawing.Size(994, 150);
             this.FramesPanel.TabIndex = 16;
             // 
-            // CurrFrame_previe
+            // Frame_previe
             // 
-            this.CurrFrame_previe.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.CurrFrame_previe.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.CurrFrame_previe.Enabled = false;
-            this.CurrFrame_previe.FormattingEnabled = true;
-            this.CurrFrame_previe.Location = new System.Drawing.Point(1007, 75);
-            this.CurrFrame_previe.Name = "CurrFrame_previe";
-            this.CurrFrame_previe.Size = new System.Drawing.Size(192, 234);
-            this.CurrFrame_previe.TabIndex = 3;
+            this.Frame_previe.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.Frame_previe.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.Frame_previe.Enabled = false;
+            this.Frame_previe.FormattingEnabled = true;
+            this.Frame_previe.Location = new System.Drawing.Point(1007, 75);
+            this.Frame_previe.Name = "Frame_previe";
+            this.Frame_previe.Size = new System.Drawing.Size(192, 234);
+            this.Frame_previe.TabIndex = 3;
             // 
             // SelectedFrame
             // 
@@ -350,7 +350,7 @@
             this.Controls.Add(this.AddFrame_button);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.SelectedFrame);
-            this.Controls.Add(this.CurrFrame_previe);
+            this.Controls.Add(this.Frame_previe);
             this.Controls.Add(this.FramesPanel);
             this.Controls.Add(this.curr_scene_label);
             this.Controls.Add(this.groupBox2);
@@ -365,7 +365,7 @@
             this.tabControl1.ResumeLayout(false);
             this.AddBackground_tab.ResumeLayout(false);
             this.AddBackground_tab.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.BackgroundImage_previe)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Backgrounds_previe)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
@@ -389,7 +389,7 @@
         private System.Windows.Forms.Label ContantFolderStatus;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.PictureBox BackgroundImage_previe;
+        private System.Windows.Forms.PictureBox Backgrounds_previe;
         private System.Windows.Forms.Button Delete_background_button;
         private System.Windows.Forms.PictureBox SceneEditor_previe;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -402,7 +402,7 @@
         private System.Windows.Forms.ToolStripMenuItem SaveScene_menu_button;
         private System.Windows.Forms.ToolStripMenuItem SaveAsNewScene_menu_button;
         private System.Windows.Forms.Panel FramesPanel;
-        private System.Windows.Forms.ListBox CurrFrame_previe;
+        private System.Windows.Forms.ListBox Frame_previe;
         private System.Windows.Forms.NumericUpDown SelectedFrame;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button AddFrame_button;

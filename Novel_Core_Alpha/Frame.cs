@@ -9,7 +9,7 @@ namespace Novel_Core_Alpha
     [Serializable]
     class Frame
     {
-        public string background_path;
+        public string background;
         public string text;
        // public string[] characters;
     }

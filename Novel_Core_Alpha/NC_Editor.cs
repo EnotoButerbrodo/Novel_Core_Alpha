@@ -42,8 +42,8 @@ namespace Novel_Core_Alpha
         }
 
 
-        List<string> backgrounds_list = new List<string>();
-        List<string> text_list = new List<string>();
+        List<string> backgrounds = new List<string>();
+        List<string> texts = new List<string>();
         List<Frame> curr_scene = new List<Frame>();//Этот лист содержит текущую сцену
         List<PictureBox> curr_scene_frames = new List<PictureBox>();
 
@@ -88,28 +88,26 @@ namespace Novel_Core_Alpha
             //Если директория существует
             if (Directory.Exists($"{contentFolderPath}\\Backgrounds"))
             {
-                backgrounds_list.Clear();
+                backgrounds.Clear();
                 Backgrounds_list.Items.Clear();
-       
+                //Массив содержит имена всех файлов что мы выбрали
                 string[] files = Directory.GetFiles($"{contentFolderPath}\\Backgrounds");//Считываем в массив имена всех файлов в папке
 
-                for (int i = 0; i < Directory.GetFiles($"{contentFolderPath}\\Backgrounds").Length; i++)
+                for (int i = 0; i < files.Length; i++)
                 {
-                    //backgrounds_image_list.Add(new DATA_LIST());//ДОбавляем новый эелемент
-                    backgrounds_list.Add(files[i]);
-                    Backgrounds_list.Items.Add(Path.GetFileName(backgrounds_list[i]));
-                }
-                           
+                    backgrounds.Add(files[i]);//ДОбавление во внутренний список
+                    Backgrounds_list.Items.Add(Path.GetFileName(backgrounds[i])); //Список на отображение
+                }          
             }
         }
-
-        private void ContenFolderSetPath_button_Click(object sender, EventArgs e)//Выбор или создание папки контента
+        //Выбор или создание папки контента
+        private void ContenFolderSetPath_button_Click(object sender, EventArgs e)
         {
             using (FolderBrowserDialog FBD = new FolderBrowserDialog())
             {
                 try
                 {
-                    if (FBD.ShowDialog() == DialogResult.OK)//Если диалог успешно завершне
+                    if (FBD.ShowDialog() == DialogResult.OK)//Если завершили выбор
                     {
                         //Если выбранная папка и есть папка контента
                         if (FBD.SelectedPath.Contains($"\\{ contentFolderName}"))
@@ -137,7 +135,7 @@ namespace Novel_Core_Alpha
                                     ContantFolderStatus.Text = "Создана новая папка контента";
                                     ContentFolderPathStoke.Text = contentFolderPath;
                                     MessageBox.Show("Контентная папка успешно создана", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                    
+
                                     break;
                                 case DialogResult.No:
                                     contentFolderPath = null;
@@ -151,6 +149,8 @@ namespace Novel_Core_Alpha
                             AddContentKey.SetValue("ContentFolderPath", contentFolderPath);
                         }
                     }
+                    else return;
+                    
                 }
                 catch
                 {
@@ -194,12 +194,14 @@ namespace Novel_Core_Alpha
                                 File.Copy(path, newPath);
                                 try
                                 {
-                                    backgrounds_image_list.Add(new DATA_LIST());//Добавляем в список новый элемент
+                                    //backgrounds_image_list.Add(new DATA_LIST());//Добавляем в список новый элемент
                                     //Записываем в новый элемент путь и имя файла
-                                    backgrounds_image_list[backgrounds_image_list.Count - 1].path = newPath;
-                                    backgrounds_image_list[backgrounds_image_list.Count - 1].name = Path.GetFileName(newPath);
+                                    //backgrounds_image_list[backgrounds_image_list.Count - 1].path = newPath;
+                                    //backgrounds_image_list[backgrounds_image_list.Count - 1].name = Path.GetFileName(newPath);
                                     //Добавляем в список отображения имя этого нового элемента
-                                    Backgrounds_list.Items.Add(backgrounds_image_list[backgrounds_image_list.Count - 1].name);
+                                    //Backgrounds_list.Items.Add(backgrounds_image_list[backgrounds_image_list.Count - 1].name);
+                                    backgrounds.Add(newPath);
+                                    Backgrounds_list.Items.Add(Path.GetFileName(backgrounds[backgrounds.Count - 1]));
                                 }
                                 catch
                                 {
@@ -237,15 +239,15 @@ namespace Novel_Core_Alpha
             Delete_background_button.Enabled = true;//Активируем кнопку удалить фон
             try
             {
-                BackgroundImage_previe.Image = BackgroundImage_previe.InitialImage;
+                Backgrounds_previe.Image = Backgrounds_previe.InitialImage;
                 await Task.Run(() =>
                 {
                     //Делаем поток который будет читать файл с изображением
-                    using (FileStream stream = new FileStream(backgrounds_image_list[Backgrounds_list.SelectedIndex].path, FileMode.Open
+                    using (FileStream stream = new FileStream(backgrounds[Backgrounds_list.SelectedIndex], FileMode.Open
                         ,FileAccess.Read))
                     {
                         //Полученную картинку отображаем
-                        BackgroundImage_previe.Image = Image.FromStream(stream);
+                        Backgrounds_previe.Image = Image.FromStream(stream);
                     }
                 });
                 
@@ -267,10 +269,10 @@ namespace Novel_Core_Alpha
         private void Delete_background_button_Click(object sender, EventArgs e)
         {
             int buff = Backgrounds_list.SelectedIndex;//Сохраняем текущий выбранный индекс
-            BackgroundImage_previe.Image = BackgroundImage_previe.InitialImage;//На превью ставим картинку ожидания
+            Backgrounds_previe.Image = Backgrounds_previe.InitialImage;//На превью ставим картинку ожидания
   
-            File.Delete(backgrounds_image_list[buff].path);
-            backgrounds_image_list.RemoveAt(buff);
+            File.Delete(backgrounds[buff]);
+            backgrounds.RemoveAt(buff);
             Backgrounds_list.Items.RemoveAt(buff);
             if (Backgrounds_list.SelectedIndex >= 0)
                 Backgrounds_list.SelectedIndex--;
@@ -282,15 +284,13 @@ namespace Novel_Core_Alpha
 
         private void SetBackground_button_Click(object sender, EventArgs e)
         {
-            /*
             if (Backgrounds_list.SelectedIndex != -1)
             {
-                SceneEditor_previe.Image = BackgroundImage_previe.Image;
-                curr_scene[selected_frame].background = backgrounds_image_list[Backgrounds_list.SelectedIndex].name;
+                SceneEditor_previe.Image = Backgrounds_previe.Image;
+                curr_scene[selected_frame].background = backgrounds[Backgrounds_list.SelectedIndex];
                 curr_scene_frames[selected_frame].Image = SceneEditor_previe.Image;
                 DisplayFrameInfo();
             }
-            */
         }
 
         //Сoхранить сцену
@@ -308,7 +308,7 @@ namespace Novel_Core_Alpha
             {
                 selected_frame = selected_buff = 0;
                 SelectedFrame.Value = 0;
-                CurrFrame_previe.Items.Clear();
+                Frame_previe.Items.Clear();
                 opd.Filter = "Сцена|*.scene";
                 opd.Title = "Выбирай файлы";
                 opd.InitialDirectory = $"{contentFolderPath}\\Scene";
@@ -417,12 +417,11 @@ namespace Novel_Core_Alpha
 
         void DisplayFrameInfo()
         {
-            /*
-            CurrFrame_previe.Items.Clear();
-            CurrFrame_previe.Items.Add("Задний фон: ");
-            CurrFrame_previe.Items.Add(curr_scene[selected_frame].background);
-            */
+            Frame_previe.Items.Clear();
+            Frame_previe.Items.Add("Задний фон: ");
+            Frame_previe.Items.Add(Path.GetFileNameWithoutExtension(curr_scene[selected_frame].background));
         }
+
         private void AddFrame_button_Click(object sender, EventArgs e)
         {
             curr_scene.Add(new Frame());
