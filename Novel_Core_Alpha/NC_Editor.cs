@@ -159,7 +159,7 @@ namespace Novel_Core_Alpha
             }
            // ReadBackgroundsFiles();
         }
-
+        //Создание папки контента
         private string CreateContentFolder(string path)
         {
             path += $"\\{contentFolderName}";
