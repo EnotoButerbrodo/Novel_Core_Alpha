@@ -28,7 +28,7 @@ namespace Novel_Core_Alpha
         List<string> texts = new List<string>(); //Список допступных текстов
         List<Frame> curr_scene = new List<Frame>();//Этот лист содержит текущую сцену
         List<PictureBox> curr_scene_frames = new List<PictureBox>(); //Храняться кадры для отображения
-
+        //
         BinaryFormatter formatter = new BinaryFormatter();//Эта штука для сериализации
 
         public NC_Editor()
