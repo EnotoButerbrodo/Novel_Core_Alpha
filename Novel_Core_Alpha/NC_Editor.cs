@@ -101,6 +101,7 @@ namespace Novel_Core_Alpha
                 }          
             }
         }
+
         //Выбор или создание папки контента
         private void ContenFolderSetPath_button_Click(object sender, EventArgs e)
         {
@@ -160,6 +161,7 @@ namespace Novel_Core_Alpha
             }
            // ReadBackgroundsFiles();
         }
+
         //Создание новой пустой папки контента
         private string CreateContentFolder(string path)
         {
@@ -172,6 +174,7 @@ namespace Novel_Core_Alpha
 
             return path;
         }
+
         //Добавить задний фон в библиотеку
         private void Add_background_button_Click(object sender, EventArgs e)
         {
@@ -225,6 +228,7 @@ namespace Novel_Core_Alpha
                 }
             }
         }
+
         //Обработка выбора элемента списка с задними фонами
         async private void Backgrounds_list_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -245,11 +249,13 @@ namespace Novel_Core_Alpha
             }
             catch { };
         }
+
         //При обновлении путь до папки контента заново считываем все доступные файлы
         private void ContentFolderPathStoke_TextChanged(object sender, EventArgs e)
         {
             ReadBackgroundsFiles();
         }
+
         //Кнопка удаления заднего фона из коллекции
         private void Delete_background_button_Click(object sender, EventArgs e)
         {
@@ -264,6 +270,7 @@ namespace Novel_Core_Alpha
             else
                 Backgrounds_list.SelectedIndex = 0;
         }
+
         //Установить картинку как фон фрейма
         private void SetBackground_button_Click(object sender, EventArgs e)
         {
@@ -275,6 +282,7 @@ namespace Novel_Core_Alpha
                 DisplayFrameInfo();
             }
         }
+
         //Сoхранить сцену в файл
         private void saveScene_menu_button_Click(object sender, EventArgs e)
         {
@@ -283,6 +291,7 @@ namespace Novel_Core_Alpha
                     formatter.Serialize(fs, curr_scene);
                 }
         }
+
         //Открытие сохраненной сцены
         private void OpenScene_menu_button_Click(object sender, EventArgs e)
         {
@@ -308,6 +317,7 @@ namespace Novel_Core_Alpha
             }
         }
 
+        //Сохранение сцены в файл
         private void SaveAsNewScene_menu_button_Click(object sender, EventArgs e)
         {
             using (SaveFileDialog sfd = new SaveFileDialog())
@@ -324,10 +334,10 @@ namespace Novel_Core_Alpha
                     }
                     curr_scene_path = sfd.FileName;
                 }
-          
               }
         }
         
+        //Отображение всех фреймов сцены
         async private void LoadListToFramesPanel()
         { 
             curr_scene_frames.Clear();//Очишаем текучий список для работы со сценой
@@ -340,7 +350,8 @@ namespace Novel_Core_Alpha
                 if (i == 0)
                     curr_scene_frames[i].Location = new Point(10,10);
                 else
-                    curr_scene_frames[i].Location = new Point(curr_scene_frames[i - 1].Location.X + curr_scene_frames[i - 1].Width + 5,
+                    curr_scene_frames[i].Location = new Point(curr_scene_frames[i - 1].Location.X + 
+                        curr_scene_frames[i - 1].Width + 5,
                         curr_scene_frames[i - 1].Location.Y);
 
                 curr_scene_frames[i].Name = $"Fr{i}";
@@ -352,21 +363,16 @@ namespace Novel_Core_Alpha
             }
             await Task.Run(() =>
             {
-                //Делаем поток который будет читать файл с изображением
-
                 for (int i = 0; i < curr_scene_frames.Count; i++)
                 {
-                    /*
-                    if (File.Exists($"{contentFolderPath}\\Backgrounds\\{curr_scene[i].background}"))
-                        using (FileStream stream = new FileStream($"{contentFolderPath}\\Backgrounds\\{curr_scene[i].background}", FileMode.Open
-                    , FileAccess.Read))
-                    {
-                       
+                    if (File.Exists(curr_scene[i].background))
+                        using (FileStream stream = new FileStream(curr_scene[i].background,
+                               FileMode.Open,
+                               FileAccess.Read))
+                        {
                             curr_scene_frames[i].Image = Image.FromStream(stream);                  
-                          
-                    }
-                    else curr_scene_frames[i].Image = null;
-                    */
+                        }
+                    else curr_scene_frames[i].Image = null; 
                 }  
             });
         }
