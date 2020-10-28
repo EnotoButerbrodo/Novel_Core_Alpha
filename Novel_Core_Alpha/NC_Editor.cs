@@ -376,11 +376,12 @@ namespace Novel_Core_Alpha
                 }  
             });
         }
+
+        //Обработка клика по фрейму
         private void Frame_Click(object sender, EventArgs e)
         {
             SetBackground_button.Enabled = true;
             var frame = sender as PictureBox;
-            //frame.Tag = 1;
             SceneEditor_previe.Image = frame.Image;
             selected_frame = (int)frame.Tag;
             frame.BackColor = Color.Aqua;
@@ -390,16 +391,15 @@ namespace Novel_Core_Alpha
                 selected_buff = selected_frame;
             }
             SelectedFrame.Value = selected_frame;
-
             //Выводим информацию о фрейме
             try
             {
                 DisplayFrameInfo();
             }
             catch { }
-
         }
 
+        //Функция отобразит в опредеённом поле информацию о выбранном фрейме
         void DisplayFrameInfo()
         {
             Frame_previe.Items.Clear();
@@ -407,6 +407,7 @@ namespace Novel_Core_Alpha
             Frame_previe.Items.Add(Path.GetFileNameWithoutExtension(curr_scene[selected_frame].background));
         }
 
+        //Добавление нового фрейма в проект
         private void AddFrame_button_Click(object sender, EventArgs e)
         {
             curr_scene.Add(new Frame());
@@ -428,9 +429,6 @@ namespace Novel_Core_Alpha
             curr_scene_frames[newframe].SizeMode = PictureBoxSizeMode.Zoom;
             curr_scene_frames[newframe].Click += new System.EventHandler(this.Frame_Click);
             this.FramesPanel.Controls.Add(curr_scene_frames[newframe]);
-
-        }
-
-        
+        }        
     }
 }
