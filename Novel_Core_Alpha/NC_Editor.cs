@@ -117,7 +117,7 @@ namespace Novel_Core_Alpha
                             ContentFolderPathStoke.Text = contentFolderPath;
                             return;
                         }
-                        //Если в выбранной папке есть папка контента
+                        //Если в выбранной папке не содержит папку контента
                         if (!Directory.Exists(FBD.SelectedPath + "\\" + contentFolderName))
                         {
                             //Спрашиваем хочет ли пользователь создать новую папку контента
