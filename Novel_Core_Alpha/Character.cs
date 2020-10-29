@@ -10,9 +10,9 @@ namespace Novel_Core_Alpha
     [Serializable]
     class Character
     {
-        public Character(string path)
+        public Character(string name)
         {
-            data_path = path;
+            this.name = name;
         }
         public string name { get; } = "Monica";
         public string data_path { get; set; }

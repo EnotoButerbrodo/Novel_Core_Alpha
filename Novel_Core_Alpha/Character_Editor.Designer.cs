@@ -37,7 +37,7 @@
             // 
             // Charater_name_textbox
             // 
-            this.Charater_name_textbox.Location = new System.Drawing.Point(12, 27);
+            this.Charater_name_textbox.Location = new System.Drawing.Point(15, 25);
             this.Charater_name_textbox.Name = "Charater_name_textbox";
             this.Charater_name_textbox.Size = new System.Drawing.Size(141, 20);
             this.Charater_name_textbox.TabIndex = 0;
@@ -51,7 +51,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 11);
+            this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(88, 13);
             this.label1.TabIndex = 2;
@@ -59,7 +59,7 @@
             // 
             // AddCharacter_button
             // 
-            this.AddCharacter_button.Location = new System.Drawing.Point(159, 27);
+            this.AddCharacter_button.Location = new System.Drawing.Point(162, 23);
             this.AddCharacter_button.Name = "AddCharacter_button";
             this.AddCharacter_button.Size = new System.Drawing.Size(75, 23);
             this.AddCharacter_button.TabIndex = 3;
@@ -72,9 +72,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.AddCharacter_button);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.Charater_name_textbox);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.AddCharacter_button);
             this.Name = "Character_Editor";
             this.Text = "Character_Editor";
             this.ResumeLayout(false);
