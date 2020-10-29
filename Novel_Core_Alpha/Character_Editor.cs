@@ -9,6 +9,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.Win32;
 
 namespace Novel_Core_Alpha
 {
@@ -16,35 +17,44 @@ namespace Novel_Core_Alpha
     {
         BinaryFormatter formatter = new BinaryFormatter();//Эта штука для сериализации
 
+        Character curr_char = new Character();
+
         public Character_Editor()
         {
             InitializeComponent();
+            Chr_box.Enabled = false;
         }
 
         
 
         private void AddCharacter_button_Click(object sender, EventArgs e)
         {
-            Character NewChar = new Character(Charater_name_textbox.Text);
+
+        }
+
+        private void CreateNewFile_menu_Click(object sender, EventArgs e)
+        {
             using (SaveFileDialog sfd = new SaveFileDialog())
             {
                 sfd.Filter = "Персонаж|*.chr";
                 sfd.DefaultExt = ".chr";
-                sfd.FileName = NewChar.name;
-                sfd.InitialDirectory = $"NCE_content\\Scene";
-                if (sfd.ShowDialog() == DialogResult.OK)
+                sfd.InitialDirectory = $"{Registry.CurrentUser.GetValue(@"Software\NCE\AddContent\ContentFolderPath")}\\Characters";
+               
+                if(sfd.ShowDialog() == DialogResult.OK)
                 {
-                    using (FileStream fs = new FileStream(sfd.FileName, FileMode.Create))
+
+                    using(FileStream fs = File.Create(sfd.FileName))
                     {
-                        formatter.Serialize(fs, NewChar);
                     }
+                    curr_char.data_path = sfd.FileName;
+                    Chr_box.Enabled = true;
                 }
             }
-
         }
 
-        private void Charater_name_textbox_TextChanged(object sender, EventArgs e)
+        private void OpenFile_menu_Click(object sender, EventArgs e)
         {
+
         }
     }
 }
