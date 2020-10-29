@@ -359,6 +359,7 @@
             this.Frame_text.Name = "Frame_text";
             this.Frame_text.Size = new System.Drawing.Size(720, 83);
             this.Frame_text.TabIndex = 0;
+            this.Frame_text.TextChanged += new System.EventHandler(this.Frame_text_TextChanged);
             // 
             // NC_Editor
             // 

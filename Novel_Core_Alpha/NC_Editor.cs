@@ -374,6 +374,7 @@ namespace Novel_Core_Alpha
                 selected_buff = selected_frame;
             }
             SelectedFrame.Value = selected_frame;
+            Frame_text.Text = curr_scene[selected_frame].text;
             //Выводим информацию о фрейме
             try
             {
@@ -388,6 +389,11 @@ namespace Novel_Core_Alpha
             Frame_previe.Items.Clear();
             Frame_previe.Items.Add("Задний фон: ");
             Frame_previe.Items.Add(Path.GetFileNameWithoutExtension(curr_scene[selected_frame].background));
+        }
+
+        private void Frame_text_TextChanged(object sender, EventArgs e)
+        {
+            curr_scene[selected_frame].text = Frame_text.Text;
         }
 
         //Добавление нового фрейма в проект
