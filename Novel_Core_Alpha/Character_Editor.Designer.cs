@@ -36,6 +36,7 @@
             this.CreateNewFile_menu = new System.Windows.Forms.ToolStripMenuItem();
             this.OpenFile_menu = new System.Windows.Forms.ToolStripMenuItem();
             this.Chr_box = new System.Windows.Forms.GroupBox();
+            this.SaveFile_button = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.Chr_box.SuspendLayout();
             this.SuspendLayout();
@@ -79,7 +80,8 @@
             // 
             this.FileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.CreateNewFile_menu,
-            this.OpenFile_menu});
+            this.OpenFile_menu,
+            this.SaveFile_button});
             this.FileToolStripMenuItem.Name = "FileToolStripMenuItem";
             this.FileToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
             this.FileToolStripMenuItem.Text = "Файл";
@@ -110,6 +112,13 @@
             this.Chr_box.TabStop = false;
             this.Chr_box.Text = "Персонаж";
             // 
+            // SaveFile_button
+            // 
+            this.SaveFile_button.Name = "SaveFile_button";
+            this.SaveFile_button.Size = new System.Drawing.Size(180, 22);
+            this.SaveFile_button.Text = "Сохранить";
+            this.SaveFile_button.Click += new System.EventHandler(this.SaveFile_button_Click);
+            // 
             // Character_Editor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -139,5 +148,6 @@
         private System.Windows.Forms.ToolStripMenuItem CreateNewFile_menu;
         private System.Windows.Forms.ToolStripMenuItem OpenFile_menu;
         private System.Windows.Forms.GroupBox Chr_box;
+        private System.Windows.Forms.ToolStripMenuItem SaveFile_button;
     }
 }

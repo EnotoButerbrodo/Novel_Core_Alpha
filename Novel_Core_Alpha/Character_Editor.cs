@@ -25,7 +25,7 @@ namespace Novel_Core_Alpha
             Chr_box.Enabled = false;
         }
 
-        
+
 
         private void AddCharacter_button_Click(object sender, EventArgs e)
         {
@@ -39,11 +39,11 @@ namespace Novel_Core_Alpha
                 sfd.Filter = "Персонаж|*.chr";
                 sfd.DefaultExt = ".chr";
                 sfd.InitialDirectory = $"{Registry.CurrentUser.GetValue(@"Software\NCE\AddContent\ContentFolderPath")}\\Characters";
-               
-                if(sfd.ShowDialog() == DialogResult.OK)
+
+                if (sfd.ShowDialog() == DialogResult.OK)
                 {
 
-                    using(FileStream fs = File.Create(sfd.FileName))
+                    using (FileStream fs = File.Create(sfd.FileName))
                     {
                     }
                     curr_char.data_path = sfd.FileName;
@@ -54,7 +54,28 @@ namespace Novel_Core_Alpha
 
         private void OpenFile_menu_Click(object sender, EventArgs e)
         {
+            using (OpenFileDialog opd = new OpenFileDialog())
+            {
+                opd.Filter = "Персонаж|*chr";
+                opd.Multiselect = false;
+                opd.Title = "Выбирай персонажа";
+
+                if (opd.ShowDialog() == DialogResult.OK)
+                {
+                    using (FileStream fs = new FileStream(opd.FileName, FileMode.Open))
+                    {
+                        curr_char = (Character)formatter.Deserialize(fs);
+                        CharaterName_textbox.Text = curr_char.name;
+                    }
+                }
+            }
+        }
+
+        private void SaveFile_button_Click(object sender, EventArgs e)
+        {
 
         }
     }
+
+       
 }

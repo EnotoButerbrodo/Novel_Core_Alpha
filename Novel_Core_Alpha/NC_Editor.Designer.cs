@@ -38,6 +38,9 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.Backgrounds_list = new System.Windows.Forms.ListBox();
             this.AddCharacter_tab = new System.Windows.Forms.TabPage();
+            this.OpenCharEditor_button = new System.Windows.Forms.Button();
+            this.Character_collection = new System.Windows.Forms.GroupBox();
+            this.Characters_list = new System.Windows.Forms.ListBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.ContenFolderSetPath_button = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -57,19 +60,17 @@
             this.AddFrame_button = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.Frame_text = new System.Windows.Forms.TextBox();
-            this.AddNewCharacter_button = new System.Windows.Forms.Button();
-            this.Character_collection = new System.Windows.Forms.GroupBox();
-            this.Characters_list = new System.Windows.Forms.ListBox();
+            this.редакторToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1.SuspendLayout();
             this.AddBackground_tab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Backgrounds_previe)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.AddCharacter_tab.SuspendLayout();
+            this.Character_collection.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SceneEditor_previe)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SelectedFrame)).BeginInit();
-            this.Character_collection.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -178,7 +179,7 @@
             // 
             // AddCharacter_tab
             // 
-            this.AddCharacter_tab.Controls.Add(this.AddNewCharacter_button);
+            this.AddCharacter_tab.Controls.Add(this.OpenCharEditor_button);
             this.AddCharacter_tab.Controls.Add(this.Character_collection);
             this.AddCharacter_tab.Location = new System.Drawing.Point(4, 22);
             this.AddCharacter_tab.Name = "AddCharacter_tab";
@@ -186,6 +187,40 @@
             this.AddCharacter_tab.TabIndex = 1;
             this.AddCharacter_tab.Text = "Персонажи";
             this.AddCharacter_tab.UseVisualStyleBackColor = true;
+            // 
+            // OpenCharEditor_button
+            // 
+            this.OpenCharEditor_button.BackColor = System.Drawing.Color.Gainsboro;
+            this.OpenCharEditor_button.FlatAppearance.BorderSize = 0;
+            this.OpenCharEditor_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.OpenCharEditor_button.Location = new System.Drawing.Point(154, 151);
+            this.OpenCharEditor_button.Name = "OpenCharEditor_button";
+            this.OpenCharEditor_button.Size = new System.Drawing.Size(99, 35);
+            this.OpenCharEditor_button.TabIndex = 20;
+            this.OpenCharEditor_button.Text = "Открыть редактор";
+            this.OpenCharEditor_button.UseVisualStyleBackColor = false;
+            this.OpenCharEditor_button.Click += new System.EventHandler(this.AddCharacter_button_Click);
+            // 
+            // Character_collection
+            // 
+            this.Character_collection.Controls.Add(this.Characters_list);
+            this.Character_collection.Location = new System.Drawing.Point(3, 144);
+            this.Character_collection.Name = "Character_collection";
+            this.Character_collection.Size = new System.Drawing.Size(145, 430);
+            this.Character_collection.TabIndex = 21;
+            this.Character_collection.TabStop = false;
+            this.Character_collection.Text = "Коллекция";
+            // 
+            // Characters_list
+            // 
+            this.Characters_list.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Characters_list.FormattingEnabled = true;
+            this.Characters_list.Items.AddRange(new object[] {
+            ""});
+            this.Characters_list.Location = new System.Drawing.Point(6, 16);
+            this.Characters_list.Name = "Characters_list";
+            this.Characters_list.Size = new System.Drawing.Size(129, 405);
+            this.Characters_list.TabIndex = 2;
             // 
             // groupBox2
             // 
@@ -264,7 +299,8 @@
             // 
             this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(0);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.файлToolStripMenuItem});
+            this.файлToolStripMenuItem,
+            this.редакторToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Margin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.menuStrip1.Name = "menuStrip1";
@@ -369,39 +405,12 @@
             this.Frame_text.TabIndex = 0;
             this.Frame_text.TextChanged += new System.EventHandler(this.Frame_text_TextChanged);
             // 
-            // AddNewCharacter_button
+            // редакторToolStripMenuItem
             // 
-            this.AddNewCharacter_button.BackColor = System.Drawing.Color.Gainsboro;
-            this.AddNewCharacter_button.FlatAppearance.BorderSize = 0;
-            this.AddNewCharacter_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AddNewCharacter_button.Location = new System.Drawing.Point(154, 151);
-            this.AddNewCharacter_button.Name = "AddNewCharacter_button";
-            this.AddNewCharacter_button.Size = new System.Drawing.Size(99, 35);
-            this.AddNewCharacter_button.TabIndex = 20;
-            this.AddNewCharacter_button.Text = "Создать персонажа";
-            this.AddNewCharacter_button.UseVisualStyleBackColor = false;
-            this.AddNewCharacter_button.Click += new System.EventHandler(this.AddCharacter_button_Click);
-            // 
-            // Character_collection
-            // 
-            this.Character_collection.Controls.Add(this.Characters_list);
-            this.Character_collection.Location = new System.Drawing.Point(3, 144);
-            this.Character_collection.Name = "Character_collection";
-            this.Character_collection.Size = new System.Drawing.Size(145, 430);
-            this.Character_collection.TabIndex = 21;
-            this.Character_collection.TabStop = false;
-            this.Character_collection.Text = "Коллекция";
-            // 
-            // Characters_list
-            // 
-            this.Characters_list.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Characters_list.FormattingEnabled = true;
-            this.Characters_list.Items.AddRange(new object[] {
-            ""});
-            this.Characters_list.Location = new System.Drawing.Point(6, 16);
-            this.Characters_list.Name = "Characters_list";
-            this.Characters_list.Size = new System.Drawing.Size(129, 405);
-            this.Characters_list.TabIndex = 2;
+            this.редакторToolStripMenuItem.Name = "редакторToolStripMenuItem";
+            this.редакторToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
+            this.редакторToolStripMenuItem.Text = "Редактор";
+            this.редакторToolStripMenuItem.Click += new System.EventHandler(this.AddCharacter_button_Click);
             // 
             // NC_Editor
             // 
@@ -431,13 +440,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.Backgrounds_previe)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.AddCharacter_tab.ResumeLayout(false);
+            this.Character_collection.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SceneEditor_previe)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SelectedFrame)).EndInit();
-            this.Character_collection.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -474,9 +483,10 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TabPage AddCharacter_tab;
         private System.Windows.Forms.TextBox Frame_text;
-        private System.Windows.Forms.Button AddNewCharacter_button;
+        private System.Windows.Forms.Button OpenCharEditor_button;
         private System.Windows.Forms.GroupBox Character_collection;
         private System.Windows.Forms.ListBox Characters_list;
+        private System.Windows.Forms.ToolStripMenuItem редакторToolStripMenuItem;
     }
 }
 
