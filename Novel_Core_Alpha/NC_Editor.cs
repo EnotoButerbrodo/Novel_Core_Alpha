@@ -26,10 +26,16 @@ namespace Novel_Core_Alpha
         //
         List<string> backgrounds = new List<string>(); //Содержит список доступных фонов
         List<string> texts = new List<string>(); //Список допступных текстов
+        List<string> characters = new List<string>();//Список доступных персонажей
         List<Frame> curr_scene = new List<Frame>();//Этот лист содержит текущую сцену
         List<PictureBox> curr_scene_frames = new List<PictureBox>(); //Храняться кадры для отображения
         //
         BinaryFormatter formatter = new BinaryFormatter();//Эта штука для сериализации
+        enum FileType
+        {
+            Backgrounds,
+            Characters
+        }
 
         public NC_Editor()
         {
@@ -63,25 +69,39 @@ namespace Novel_Core_Alpha
             Frame_text.Enabled = false;
 
         }
-        
+
 
         //Функция формирует список всех файлов в директории
-        void ReadBackgroundsFiles()
+        void ReadContentFolderFiles()
         {
-            //Если директория существует
-            if (Directory.Exists($"{contentFolderPath}\\Backgrounds"))
-            {
-                backgrounds.Clear();
-                Backgrounds_list.Items.Clear();
-                //Массив содержит имена всех файлов что мы выбрали
-                string[] files = Directory.GetFiles($"{contentFolderPath}\\Backgrounds");//Считываем в массив имена всех файлов в папке
+              //Если директория существует
+             if (Directory.Exists($"{contentFolderPath}\\Backgrounds"))
+             {
+                 backgrounds.Clear();
+                 Backgrounds_list.Items.Clear();
+                 //Массив содержит имена всех файлов что мы выбрали
+                 string[] files = Directory.GetFiles($"{contentFolderPath}\\Backgrounds");//Считываем в массив имена всех файлов в папке
+             
+                 for (int i = 0; i < files.Length; i++)
+                 {
+                     backgrounds.Add(files[i]);//ДОбавление во внутренний список
+                     Backgrounds_list.Items.Add(Path.GetFileName(backgrounds[i])); //Список на отображение
+                 }
+             }
 
+             if (Directory.Exists($"{contentFolderPath}\\Characters"))
+             {
+                 characters.Clear();
+                 Characters_list.Items.Clear();
+                 string[] files = Directory.GetFiles($"{contentFolderPath}\\Characters");//Считываем в массив имена всех файлов в папке
                 for (int i = 0; i < files.Length; i++)
                 {
-                    backgrounds.Add(files[i]);//ДОбавление во внутренний список
-                    Backgrounds_list.Items.Add(Path.GetFileName(backgrounds[i])); //Список на отображение
-                }          
+                    characters.Add(files[i]);//ДОбавление во внутренний список
+                    Characters_list.Items.Add(Path.GetFileName(characters[i])); //Список на отображение
+                }
             }
+                
+       
         }
 
         //Выбор или создание папки контента
@@ -235,7 +255,7 @@ namespace Novel_Core_Alpha
         //При обновлении путь до папки контента заново считываем все доступные файлы
         private void ContentFolderPathStoke_TextChanged(object sender, EventArgs e)
         {
-            ReadBackgroundsFiles();
+            ReadContentFolderFiles();
         }
 
         //Кнопка удаления заднего фона из коллекции

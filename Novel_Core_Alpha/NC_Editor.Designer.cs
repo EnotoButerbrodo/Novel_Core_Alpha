@@ -37,6 +37,7 @@
             this.Add_background_button = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.Backgrounds_list = new System.Windows.Forms.ListBox();
+            this.AddCharacter_tab = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.ContenFolderSetPath_button = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -55,26 +56,30 @@
             this.label1 = new System.Windows.Forms.Label();
             this.AddFrame_button = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
-            this.AddText_tab = new System.Windows.Forms.TabPage();
             this.Frame_text = new System.Windows.Forms.TextBox();
+            this.AddCharacter_button = new System.Windows.Forms.Button();
+            this.Character_collection = new System.Windows.Forms.GroupBox();
+            this.Characters_list = new System.Windows.Forms.ListBox();
             this.tabControl1.SuspendLayout();
             this.AddBackground_tab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Backgrounds_previe)).BeginInit();
             this.groupBox1.SuspendLayout();
+            this.AddCharacter_tab.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SceneEditor_previe)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SelectedFrame)).BeginInit();
+            this.Character_collection.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.AddBackground_tab);
-            this.tabControl1.Controls.Add(this.AddText_tab);
+            this.tabControl1.Controls.Add(this.AddCharacter_tab);
             this.tabControl1.Location = new System.Drawing.Point(12, 113);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(264, 479);
+            this.tabControl1.Size = new System.Drawing.Size(264, 605);
             this.tabControl1.TabIndex = 0;
             // 
             // AddBackground_tab
@@ -88,7 +93,7 @@
             this.AddBackground_tab.Location = new System.Drawing.Point(4, 22);
             this.AddBackground_tab.Name = "AddBackground_tab";
             this.AddBackground_tab.Padding = new System.Windows.Forms.Padding(3);
-            this.AddBackground_tab.Size = new System.Drawing.Size(256, 453);
+            this.AddBackground_tab.Size = new System.Drawing.Size(256, 579);
             this.AddBackground_tab.TabIndex = 0;
             this.AddBackground_tab.Text = "Задний фон";
             this.AddBackground_tab.UseVisualStyleBackColor = true;
@@ -154,7 +159,7 @@
             this.groupBox1.Controls.Add(this.Backgrounds_list);
             this.groupBox1.Location = new System.Drawing.Point(13, 143);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(145, 307);
+            this.groupBox1.Size = new System.Drawing.Size(145, 430);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Коллекция";
@@ -167,9 +172,20 @@
             ""});
             this.Backgrounds_list.Location = new System.Drawing.Point(6, 19);
             this.Backgrounds_list.Name = "Backgrounds_list";
-            this.Backgrounds_list.Size = new System.Drawing.Size(129, 275);
+            this.Backgrounds_list.Size = new System.Drawing.Size(129, 405);
             this.Backgrounds_list.TabIndex = 2;
             this.Backgrounds_list.SelectedIndexChanged += new System.EventHandler(this.Backgrounds_list_SelectedIndexChanged);
+            // 
+            // AddCharacter_tab
+            // 
+            this.AddCharacter_tab.Controls.Add(this.AddCharacter_button);
+            this.AddCharacter_tab.Controls.Add(this.Character_collection);
+            this.AddCharacter_tab.Location = new System.Drawing.Point(4, 22);
+            this.AddCharacter_tab.Name = "AddCharacter_tab";
+            this.AddCharacter_tab.Size = new System.Drawing.Size(256, 579);
+            this.AddCharacter_tab.TabIndex = 1;
+            this.AddCharacter_tab.Text = "Персонажи";
+            this.AddCharacter_tab.UseVisualStyleBackColor = true;
             // 
             // groupBox2
             // 
@@ -343,15 +359,6 @@
             this.label4.TabIndex = 19;
             this.label4.Text = "Информация о кадре";
             // 
-            // AddText_tab
-            // 
-            this.AddText_tab.Location = new System.Drawing.Point(4, 22);
-            this.AddText_tab.Name = "AddText_tab";
-            this.AddText_tab.Size = new System.Drawing.Size(256, 453);
-            this.AddText_tab.TabIndex = 1;
-            this.AddText_tab.Text = "Добавить текст";
-            this.AddText_tab.UseVisualStyleBackColor = true;
-            // 
             // Frame_text
             // 
             this.Frame_text.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -361,6 +368,39 @@
             this.Frame_text.Size = new System.Drawing.Size(720, 83);
             this.Frame_text.TabIndex = 0;
             this.Frame_text.TextChanged += new System.EventHandler(this.Frame_text_TextChanged);
+            // 
+            // AddCharacter_button
+            // 
+            this.AddCharacter_button.BackColor = System.Drawing.Color.Gainsboro;
+            this.AddCharacter_button.FlatAppearance.BorderSize = 0;
+            this.AddCharacter_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AddCharacter_button.Location = new System.Drawing.Point(154, 151);
+            this.AddCharacter_button.Name = "AddCharacter_button";
+            this.AddCharacter_button.Size = new System.Drawing.Size(71, 23);
+            this.AddCharacter_button.TabIndex = 20;
+            this.AddCharacter_button.Text = "Добавить";
+            this.AddCharacter_button.UseVisualStyleBackColor = false;
+            // 
+            // Character_collection
+            // 
+            this.Character_collection.Controls.Add(this.Characters_list);
+            this.Character_collection.Location = new System.Drawing.Point(3, 144);
+            this.Character_collection.Name = "Character_collection";
+            this.Character_collection.Size = new System.Drawing.Size(145, 430);
+            this.Character_collection.TabIndex = 21;
+            this.Character_collection.TabStop = false;
+            this.Character_collection.Text = "Коллекция";
+            // 
+            // Characters_list
+            // 
+            this.Characters_list.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Characters_list.FormattingEnabled = true;
+            this.Characters_list.Items.AddRange(new object[] {
+            ""});
+            this.Characters_list.Location = new System.Drawing.Point(6, 16);
+            this.Characters_list.Name = "Characters_list";
+            this.Characters_list.Size = new System.Drawing.Size(129, 405);
+            this.Characters_list.TabIndex = 2;
             // 
             // NC_Editor
             // 
@@ -389,12 +429,14 @@
             this.AddBackground_tab.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Backgrounds_previe)).EndInit();
             this.groupBox1.ResumeLayout(false);
+            this.AddCharacter_tab.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SceneEditor_previe)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SelectedFrame)).EndInit();
+            this.Character_collection.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -429,8 +471,11 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button AddFrame_button;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TabPage AddText_tab;
+        private System.Windows.Forms.TabPage AddCharacter_tab;
         private System.Windows.Forms.TextBox Frame_text;
+        private System.Windows.Forms.Button AddCharacter_button;
+        private System.Windows.Forms.GroupBox Character_collection;
+        private System.Windows.Forms.ListBox Characters_list;
     }
 }
 
