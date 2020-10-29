@@ -88,7 +88,6 @@ namespace Novel_Core_Alpha
                      Backgrounds_list.Items.Add(Path.GetFileName(backgrounds[i])); //Список на отображение
                  }
              }
-
              if (Directory.Exists($"{contentFolderPath}\\Characters"))
              {
                  characters.Clear();
@@ -100,8 +99,6 @@ namespace Novel_Core_Alpha
                     Characters_list.Items.Add(Path.GetFileName(characters[i])); //Список на отображение
                 }
             }
-                
-       
         }
 
         //Выбор или создание папки контента
@@ -414,6 +411,12 @@ namespace Novel_Core_Alpha
         private void Frame_text_TextChanged(object sender, EventArgs e)
         {
             curr_scene[selected_frame].text = Frame_text.Text;
+        }
+
+        private void AddCharacter_button_Click(object sender, EventArgs e)
+        {
+            Character_Editor char_edit = new Character_Editor();
+            char_edit.Show();
         }
 
         //Добавление нового фрейма в проект

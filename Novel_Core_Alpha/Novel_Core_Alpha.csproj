@@ -64,6 +64,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Character.cs" />
+    <Compile Include="Character_Editor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Character_Editor.Designer.cs">
+      <DependentUpon>Character_Editor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Frame.cs" />
     <Compile Include="NC_Editor.cs">
       <SubType>Form</SubType>
@@ -73,6 +79,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Character_Editor.resx">
+      <DependentUpon>Character_Editor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="NC_Editor.resx">
       <DependentUpon>NC_Editor.cs</DependentUpon>
     </EmbeddedResource>

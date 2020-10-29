@@ -57,7 +57,7 @@
             this.AddFrame_button = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.Frame_text = new System.Windows.Forms.TextBox();
-            this.AddCharacter_button = new System.Windows.Forms.Button();
+            this.AddNewCharacter_button = new System.Windows.Forms.Button();
             this.Character_collection = new System.Windows.Forms.GroupBox();
             this.Characters_list = new System.Windows.Forms.ListBox();
             this.tabControl1.SuspendLayout();
@@ -178,7 +178,7 @@
             // 
             // AddCharacter_tab
             // 
-            this.AddCharacter_tab.Controls.Add(this.AddCharacter_button);
+            this.AddCharacter_tab.Controls.Add(this.AddNewCharacter_button);
             this.AddCharacter_tab.Controls.Add(this.Character_collection);
             this.AddCharacter_tab.Location = new System.Drawing.Point(4, 22);
             this.AddCharacter_tab.Name = "AddCharacter_tab";
@@ -369,17 +369,18 @@
             this.Frame_text.TabIndex = 0;
             this.Frame_text.TextChanged += new System.EventHandler(this.Frame_text_TextChanged);
             // 
-            // AddCharacter_button
+            // AddNewCharacter_button
             // 
-            this.AddCharacter_button.BackColor = System.Drawing.Color.Gainsboro;
-            this.AddCharacter_button.FlatAppearance.BorderSize = 0;
-            this.AddCharacter_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AddCharacter_button.Location = new System.Drawing.Point(154, 151);
-            this.AddCharacter_button.Name = "AddCharacter_button";
-            this.AddCharacter_button.Size = new System.Drawing.Size(71, 23);
-            this.AddCharacter_button.TabIndex = 20;
-            this.AddCharacter_button.Text = "Добавить";
-            this.AddCharacter_button.UseVisualStyleBackColor = false;
+            this.AddNewCharacter_button.BackColor = System.Drawing.Color.Gainsboro;
+            this.AddNewCharacter_button.FlatAppearance.BorderSize = 0;
+            this.AddNewCharacter_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AddNewCharacter_button.Location = new System.Drawing.Point(154, 151);
+            this.AddNewCharacter_button.Name = "AddNewCharacter_button";
+            this.AddNewCharacter_button.Size = new System.Drawing.Size(99, 35);
+            this.AddNewCharacter_button.TabIndex = 20;
+            this.AddNewCharacter_button.Text = "Создать персонажа";
+            this.AddNewCharacter_button.UseVisualStyleBackColor = false;
+            this.AddNewCharacter_button.Click += new System.EventHandler(this.AddCharacter_button_Click);
             // 
             // Character_collection
             // 
@@ -473,7 +474,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TabPage AddCharacter_tab;
         private System.Windows.Forms.TextBox Frame_text;
-        private System.Windows.Forms.Button AddCharacter_button;
+        private System.Windows.Forms.Button AddNewCharacter_button;
         private System.Windows.Forms.GroupBox Character_collection;
         private System.Windows.Forms.ListBox Characters_list;
     }
