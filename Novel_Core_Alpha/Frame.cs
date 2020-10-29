@@ -12,6 +12,8 @@ namespace Novel_Core_Alpha
     {
         public string background { get; set; }
         public string text { get; set; } = "Пусто";
-       // public string[] characters;
+        private List<Character> characters { get; }
+
+
     }
 }
