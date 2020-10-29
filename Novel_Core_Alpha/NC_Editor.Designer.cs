@@ -55,6 +55,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.AddFrame_button = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
+            this.AddText_tab = new System.Windows.Forms.TabPage();
+            this.Frame_text = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.AddBackground_tab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Backgrounds_previe)).BeginInit();
@@ -68,6 +70,7 @@
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.AddBackground_tab);
+            this.tabControl1.Controls.Add(this.AddText_tab);
             this.tabControl1.Location = new System.Drawing.Point(12, 113);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -340,11 +343,29 @@
             this.label4.TabIndex = 19;
             this.label4.Text = "Информация о кадре";
             // 
+            // AddText_tab
+            // 
+            this.AddText_tab.Location = new System.Drawing.Point(4, 22);
+            this.AddText_tab.Name = "AddText_tab";
+            this.AddText_tab.Size = new System.Drawing.Size(256, 453);
+            this.AddText_tab.TabIndex = 1;
+            this.AddText_tab.Text = "Добавить текст";
+            this.AddText_tab.UseVisualStyleBackColor = true;
+            // 
+            // Frame_text
+            // 
+            this.Frame_text.Location = new System.Drawing.Point(281, 460);
+            this.Frame_text.Multiline = true;
+            this.Frame_text.Name = "Frame_text";
+            this.Frame_text.Size = new System.Drawing.Size(720, 83);
+            this.Frame_text.TabIndex = 0;
+            // 
             // NC_Editor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1284, 721);
+            this.Controls.Add(this.Frame_text);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.AddFrame_button);
             this.Controls.Add(this.label1);
@@ -406,6 +427,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button AddFrame_button;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TabPage AddText_tab;
+        private System.Windows.Forms.TextBox Frame_text;
     }
 }
 

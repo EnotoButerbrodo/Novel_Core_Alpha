@@ -60,6 +60,7 @@ namespace Novel_Core_Alpha
             SaveScene_menu_button.Enabled = false;
             SetBackground_button.Enabled = false;
             Delete_background_button.Enabled = false;//Деактивируем кнопку
+            Frame_text.Enabled = false;
 
         }
         
@@ -362,6 +363,7 @@ namespace Novel_Core_Alpha
         private void Frame_Click(object sender, EventArgs e)
         {
             SetBackground_button.Enabled = true;
+            Frame_text.Enabled = true;
             var frame = sender as PictureBox;
             SceneEditor_previe.Image = frame.Image;
             selected_frame = (int)frame.Tag;
