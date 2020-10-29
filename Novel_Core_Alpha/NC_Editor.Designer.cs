@@ -230,7 +230,7 @@
             this.SceneEditor_previe.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.SceneEditor_previe.Location = new System.Drawing.Point(281, 63);
             this.SceneEditor_previe.Name = "SceneEditor_previe";
-            this.SceneEditor_previe.Size = new System.Drawing.Size(720, 480);
+            this.SceneEditor_previe.Size = new System.Drawing.Size(720, 400);
             this.SceneEditor_previe.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.SceneEditor_previe.TabIndex = 0;
             this.SceneEditor_previe.TabStop = false;
@@ -354,6 +354,7 @@
             // 
             // Frame_text
             // 
+            this.Frame_text.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Frame_text.Location = new System.Drawing.Point(281, 460);
             this.Frame_text.Multiline = true;
             this.Frame_text.Name = "Frame_text";
