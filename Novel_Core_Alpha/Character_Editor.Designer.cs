@@ -47,6 +47,7 @@
             this.CharaterName_textbox.Name = "CharaterName_textbox";
             this.CharaterName_textbox.Size = new System.Drawing.Size(141, 20);
             this.CharaterName_textbox.TabIndex = 0;
+            this.CharaterName_textbox.TextChanged += new System.EventHandler(this.CharaterName_textbox_TextChanged);
             // 
             // label1
             // 
@@ -89,21 +90,21 @@
             // CreateNewFile_menu
             // 
             this.CreateNewFile_menu.Name = "CreateNewFile_menu";
-            this.CreateNewFile_menu.Size = new System.Drawing.Size(180, 22);
+            this.CreateNewFile_menu.Size = new System.Drawing.Size(133, 22);
             this.CreateNewFile_menu.Text = "Создать";
             this.CreateNewFile_menu.Click += new System.EventHandler(this.CreateNewFile_menu_Click);
             // 
             // OpenFile_menu
             // 
             this.OpenFile_menu.Name = "OpenFile_menu";
-            this.OpenFile_menu.Size = new System.Drawing.Size(180, 22);
+            this.OpenFile_menu.Size = new System.Drawing.Size(133, 22);
             this.OpenFile_menu.Text = "Открыть";
             this.OpenFile_menu.Click += new System.EventHandler(this.OpenFile_menu_Click);
             // 
             // SaveFile_button
             // 
             this.SaveFile_button.Name = "SaveFile_button";
-            this.SaveFile_button.Size = new System.Drawing.Size(180, 22);
+            this.SaveFile_button.Size = new System.Drawing.Size(133, 22);
             this.SaveFile_button.Text = "Сохранить";
             this.SaveFile_button.Click += new System.EventHandler(this.SaveFile_button_Click);
             // 

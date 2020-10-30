@@ -44,9 +44,6 @@ namespace Novel_Core_Alpha
 
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
-                    using (FileStream fs = File.Create(sfd.FileName))
-                    {
-                    }
                     curr_char_path = sfd.FileName;
                     Chr_box.Enabled = true;
                     SaveFile_button.Enabled = true;
@@ -72,19 +69,23 @@ namespace Novel_Core_Alpha
                     CharaterName_textbox.Text = curr_char.name;
                     curr_char_path = opd.FileName;
                 }
-            
+                Chr_box.Enabled = true;
+                SaveFile_button.Enabled = true;
             }
             
         }
 
         private void SaveFile_button_Click(object sender, EventArgs e)
         {
-            
-            using (FileStream fs = new FileStream(curr_char_path, FileMode.Create))
+            using (FileStream fs = new FileStream(curr_char_path, FileMode.OpenOrCreate, FileAccess.Write))
             {
                 formatter.Serialize(fs, curr_char);
             }    
-            
+        }
+
+        private void CharaterName_textbox_TextChanged(object sender, EventArgs e)
+        {
+            curr_char.name = CharaterName_textbox.Text;
         }
     }
 
