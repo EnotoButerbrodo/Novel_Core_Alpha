@@ -18,18 +18,20 @@ namespace Novel_Core_Alpha
         BinaryFormatter formatter = new BinaryFormatter();//Эта штука для сериализации
 
         Character curr_char = new Character();
+        string curr_char_path;
 
         public Character_Editor()
         {
             InitializeComponent();
             Chr_box.Enabled = false;
+            SaveFile_button.Enabled = false;
         }
 
 
 
         private void AddCharacter_button_Click(object sender, EventArgs e)
         {
-
+            
         }
 
         private void CreateNewFile_menu_Click(object sender, EventArgs e)
@@ -42,12 +44,12 @@ namespace Novel_Core_Alpha
 
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
-
                     using (FileStream fs = File.Create(sfd.FileName))
                     {
                     }
-                    curr_char.data_path = sfd.FileName;
+                    curr_char_path = sfd.FileName;
                     Chr_box.Enabled = true;
+                    SaveFile_button.Enabled = true;
                 }
             }
         }
@@ -65,15 +67,24 @@ namespace Novel_Core_Alpha
                     using (FileStream fs = new FileStream(opd.FileName, FileMode.Open))
                     {
                         curr_char = (Character)formatter.Deserialize(fs);
-                        CharaterName_textbox.Text = curr_char.name;
+                        
                     }
+                    CharaterName_textbox.Text = curr_char.name;
+                    curr_char_path = opd.FileName;
                 }
+            
             }
+            
         }
 
         private void SaveFile_button_Click(object sender, EventArgs e)
         {
-
+            
+            using (FileStream fs = new FileStream(curr_char_path, FileMode.Create))
+            {
+                formatter.Serialize(fs, curr_char);
+            }    
+            
         }
     }
 

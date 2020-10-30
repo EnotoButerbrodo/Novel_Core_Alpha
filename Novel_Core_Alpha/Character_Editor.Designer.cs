@@ -35,8 +35,8 @@
             this.FileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.CreateNewFile_menu = new System.Windows.Forms.ToolStripMenuItem();
             this.OpenFile_menu = new System.Windows.Forms.ToolStripMenuItem();
-            this.Chr_box = new System.Windows.Forms.GroupBox();
             this.SaveFile_button = new System.Windows.Forms.ToolStripMenuItem();
+            this.Chr_box = new System.Windows.Forms.GroupBox();
             this.menuStrip1.SuspendLayout();
             this.Chr_box.SuspendLayout();
             this.SuspendLayout();
@@ -100,6 +100,13 @@
             this.OpenFile_menu.Text = "Открыть";
             this.OpenFile_menu.Click += new System.EventHandler(this.OpenFile_menu_Click);
             // 
+            // SaveFile_button
+            // 
+            this.SaveFile_button.Name = "SaveFile_button";
+            this.SaveFile_button.Size = new System.Drawing.Size(180, 22);
+            this.SaveFile_button.Text = "Сохранить";
+            this.SaveFile_button.Click += new System.EventHandler(this.SaveFile_button_Click);
+            // 
             // Chr_box
             // 
             this.Chr_box.Controls.Add(this.label1);
@@ -111,13 +118,6 @@
             this.Chr_box.TabIndex = 5;
             this.Chr_box.TabStop = false;
             this.Chr_box.Text = "Персонаж";
-            // 
-            // SaveFile_button
-            // 
-            this.SaveFile_button.Name = "SaveFile_button";
-            this.SaveFile_button.Size = new System.Drawing.Size(180, 22);
-            this.SaveFile_button.Text = "Сохранить";
-            this.SaveFile_button.Click += new System.EventHandler(this.SaveFile_button_Click);
             // 
             // Character_Editor
             // 
