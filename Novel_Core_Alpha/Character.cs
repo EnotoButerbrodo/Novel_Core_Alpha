@@ -9,7 +9,10 @@ namespace Novel_Core_Alpha
     class Character
     {
         public string name;
-        public string data_path;
-        public int emotion { get; set; }
+        public List<string> sprites { get; }
+        public void Add_sprites(string path)
+        {
+            sprites.Add(path);
+        }
     }
 }
