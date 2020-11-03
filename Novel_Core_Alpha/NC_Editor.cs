@@ -186,7 +186,7 @@ namespace Novel_Core_Alpha
                         {
                             try
                             {
-                                newPath = $"{contentFolderPath}\\Backgrounds\\{Path.GetFileName(path)}";
+                                newPath = $"{contentFolderPath}\\{CFDirectories[(int)CFDirectoryName.Backgrounds]}\\{Path.GetFileName(path)}";
                                 File.Copy(path, newPath);
                                 try
                                 {
@@ -254,12 +254,12 @@ namespace Novel_Core_Alpha
 
         public void ReadCharacterFolders()
         {
-            if (Directory.Exists($"{contentFolderPath}\\Characters"))
+            if (Directory.Exists($"{contentFolderPath}\\{CFDirectories[(int)CFDirectoryName.Characters]}"))
             {
                 string dirr;
                 Characters_combobox.Items.Clear();
                 //Массив содержит имена всех файлов что мы выбрали
-                string[] directory = Directory.GetDirectories($"{contentFolderPath}\\Characters");//Считываем в массив имена всех файлов в папке
+                string[] directory = Directory.GetDirectories($"{contentFolderPath}\\{CFDirectories[(int)CFDirectoryName.Characters]}");//Считываем в массив имена всех файлов в папке
 
                 foreach (string dir in directory)
                 {
@@ -315,7 +315,7 @@ namespace Novel_Core_Alpha
                 Frame_previe.Items.Clear();
                 opd.Filter = "Сцена|*.scene";
                 opd.Title = "Выбирай файл";
-                opd.InitialDirectory = $"{contentFolderPath}\\Scene";
+                opd.InitialDirectory = $"{contentFolderPath}\\{CFDirectories[(int)CFDirectoryName.Scenes]}";
                 if(opd.ShowDialog() == DialogResult.OK)
                 {
                     using (FileStream fs = new FileStream(opd.FileName, FileMode.Open))
@@ -338,7 +338,7 @@ namespace Novel_Core_Alpha
                 sfd.Filter = "Сцена|*.scene";
                 sfd.Title = "Выбирай файлы";
                 sfd.DefaultExt = ".scene";
-                sfd.InitialDirectory = $"{contentFolderPath}\\Scene";
+                sfd.InitialDirectory = $"{contentFolderPath}\\{CFDirectories[(int)CFDirectoryName.Scenes]}";
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
                     using (FileStream fs = new FileStream(sfd.FileName, FileMode.Create))
@@ -429,7 +429,7 @@ namespace Novel_Core_Alpha
 
         private void Characters_combobox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string[] files = Directory.GetFiles($"{contentFolderPath}\\Characters\\" +
+            string[] files = Directory.GetFiles($"{contentFolderPath}\\{CFDirectories[(int)CFDirectoryName.Characters]}\\" +
                 $"{Characters_combobox.Items[Characters_combobox.SelectedIndex]}"); 
             imageList1.ImageSize = new Size(256, 256);
 
