@@ -364,7 +364,7 @@
             // Frame_text
             // 
             this.Frame_text.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Frame_text.Location = new System.Drawing.Point(281, 460);
+            this.Frame_text.Location = new System.Drawing.Point(286, 462);
             this.Frame_text.Multiline = true;
             this.Frame_text.Name = "Frame_text";
             this.Frame_text.Size = new System.Drawing.Size(720, 83);

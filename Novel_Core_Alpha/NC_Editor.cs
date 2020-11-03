@@ -30,6 +30,20 @@ namespace Novel_Core_Alpha
         List<PictureBox> curr_scene_frames = new List<PictureBox>(); //Храняться кадры для отображения
         //
         BinaryFormatter formatter = new BinaryFormatter();//Эта штука для сериализации
+        string[] CFDirectories =
+        {
+            "Backgrounds",
+            "Characters",
+            "Scenes",
+            "Sounds"
+        };
+        enum CFDirectoryName
+        {
+            Backgrounds = 0,
+            Characters = 1,
+            Scenes = 2,
+            Sounds = 3
+        };
 
         public NC_Editor()
         {
@@ -69,12 +83,12 @@ namespace Novel_Core_Alpha
         void ReadBackgroundsFiles()
         {
             //Если директория существует
-            if (Directory.Exists($"{contentFolderPath}\\Backgrounds"))
+            if (Directory.Exists($"{contentFolderPath}\\{CFDirectories[(int)CFDirectoryName.Backgrounds]}"))
             {
                 backgrounds.Clear();
                 Backgrounds_list.Items.Clear();
                 //Массив содержит имена всех файлов что мы выбрали
-                string[] files = Directory.GetFiles($"{contentFolderPath}\\Backgrounds");//Считываем в массив имена всех файлов в папке
+                string[] files = Directory.GetFiles($"{contentFolderPath}\\{CFDirectories[(int)CFDirectoryName.Backgrounds]}");//Считываем в массив имена всех файлов в папке
 
                 for (int i = 0; i < files.Length; i++)
                 {
@@ -149,11 +163,10 @@ namespace Novel_Core_Alpha
         {
             path += $"\\{contentFolderName}";
             Directory.CreateDirectory(path);
-            Directory.CreateDirectory($"{path}\\Backgrounds");
-            Directory.CreateDirectory($"{path}\\Sounds");
-            Directory.CreateDirectory($"{path}\\Characters");
-            Directory.CreateDirectory($"{path}\\Scenes");
-
+            foreach(string dir in CFDirectories)
+            {
+                Directory.CreateDirectory($"{path}\\{dir}");
+            }
             return path;
         }
 
