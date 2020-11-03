@@ -414,6 +414,23 @@ namespace Novel_Core_Alpha
             curr_scene[selected_frame].text = Frame_text.Text;
         }
 
+        private void Characters_combobox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string[] files = Directory.GetFiles($"{contentFolderPath}\\Characters\\" +
+                $"{Characters_combobox.Items[Characters_combobox.SelectedIndex]}"); 
+            imageList1.ImageSize = new Size(256, 256);
+
+            for(int i = 0; i < files.Length; i++)
+            {
+                imageList1.Images.Add(Image.FromFile(files[i]));
+                ListViewItem lvi = new ListViewItem(new string[] { "", Path.GetFileNameWithoutExtension(files[i]) });
+                lvi.ImageIndex = i;
+                listView2.Items.Add(lvi);
+            }
+            SceneEditor_previe.Image = imageList1.Images[0];
+            listView2.SmallImageList = imageList1;
+        }
+
         //Добавление нового фрейма в проект
         private void AddFrame_button_Click(object sender, EventArgs e)
         {

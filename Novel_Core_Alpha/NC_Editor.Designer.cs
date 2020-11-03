@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.AddBackground_tab = new System.Windows.Forms.TabPage();
             this.SetBackground_button = new System.Windows.Forms.Button();
@@ -58,7 +59,10 @@
             this.label4 = new System.Windows.Forms.Label();
             this.Frame_text = new System.Windows.Forms.TextBox();
             this.Characters_combobox = new System.Windows.Forms.ComboBox();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.listView2 = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.tabControl1.SuspendLayout();
             this.AddBackground_tab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Backgrounds_previe)).BeginInit();
@@ -176,6 +180,7 @@
             // 
             // AddCharacter_tab
             // 
+            this.AddCharacter_tab.Controls.Add(this.listView2);
             this.AddCharacter_tab.Controls.Add(this.Characters_combobox);
             this.AddCharacter_tab.Location = new System.Drawing.Point(4, 22);
             this.AddCharacter_tab.Name = "AddCharacter_tab";
@@ -372,26 +377,46 @@
             this.Characters_combobox.Items.AddRange(new object[] {
             "Хуй\t",
             "Пизда"});
-            this.Characters_combobox.Location = new System.Drawing.Point(3, 38);
+            this.Characters_combobox.Location = new System.Drawing.Point(3, 3);
             this.Characters_combobox.Name = "Characters_combobox";
             this.Characters_combobox.Size = new System.Drawing.Size(250, 21);
             this.Characters_combobox.TabIndex = 20;
+            this.Characters_combobox.SelectedIndexChanged += new System.EventHandler(this.Characters_combobox_SelectedIndexChanged);
             // 
-            // listView1
+            // listView2
             // 
-            this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(407, 96);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(121, 97);
-            this.listView1.TabIndex = 21;
-            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView2.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2});
+            this.listView2.HideSelection = false;
+            this.listView2.Location = new System.Drawing.Point(3, 30);
+            this.listView2.Name = "listView2";
+            this.listView2.Size = new System.Drawing.Size(250, 420);
+            this.listView2.TabIndex = 22;
+            this.listView2.UseCompatibleStateImageBehavior = false;
+            this.listView2.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Спрайт";
+            this.columnHeader1.Width = 200;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Имя";
+            this.columnHeader2.Width = 200;
+            // 
+            // imageList1
+            // 
+            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
+            this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             // 
             // NC_Editor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1284, 721);
-            this.Controls.Add(this.listView1);
             this.Controls.Add(this.Frame_text);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.AddFrame_button);
@@ -458,7 +483,10 @@
         private System.Windows.Forms.TabPage AddCharacter_tab;
         private System.Windows.Forms.TextBox Frame_text;
         private System.Windows.Forms.ComboBox Characters_combobox;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView listView2;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ImageList imageList1;
     }
 }
 
