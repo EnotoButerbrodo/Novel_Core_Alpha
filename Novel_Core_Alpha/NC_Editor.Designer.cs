@@ -37,6 +37,7 @@
             this.Add_background_button = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.Backgrounds_list = new System.Windows.Forms.ListBox();
+            this.AddCharacter_tab = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.ContenFolderSetPath_button = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -55,22 +56,27 @@
             this.label1 = new System.Windows.Forms.Label();
             this.AddFrame_button = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
-            this.AddText_tab = new System.Windows.Forms.TabPage();
             this.Frame_text = new System.Windows.Forms.TextBox();
+            this.Characters_names_list = new System.Windows.Forms.ListBox();
+            this.Character_sprites_list = new System.Windows.Forms.ListBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabControl1.SuspendLayout();
             this.AddBackground_tab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Backgrounds_previe)).BeginInit();
             this.groupBox1.SuspendLayout();
+            this.AddCharacter_tab.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SceneEditor_previe)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SelectedFrame)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.AddBackground_tab);
-            this.tabControl1.Controls.Add(this.AddText_tab);
+            this.tabControl1.Controls.Add(this.AddCharacter_tab);
             this.tabControl1.Location = new System.Drawing.Point(12, 113);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -171,6 +177,19 @@
             this.Backgrounds_list.TabIndex = 2;
             this.Backgrounds_list.SelectedIndexChanged += new System.EventHandler(this.Backgrounds_list_SelectedIndexChanged);
             // 
+            // AddCharacter_tab
+            // 
+            this.AddCharacter_tab.Controls.Add(this.label5);
+            this.AddCharacter_tab.Controls.Add(this.Character_sprites_list);
+            this.AddCharacter_tab.Controls.Add(this.Characters_names_list);
+            this.AddCharacter_tab.Controls.Add(this.pictureBox1);
+            this.AddCharacter_tab.Location = new System.Drawing.Point(4, 22);
+            this.AddCharacter_tab.Name = "AddCharacter_tab";
+            this.AddCharacter_tab.Size = new System.Drawing.Size(256, 453);
+            this.AddCharacter_tab.TabIndex = 1;
+            this.AddCharacter_tab.Text = "Персонажи";
+            this.AddCharacter_tab.UseVisualStyleBackColor = true;
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.ContenFolderSetPath_button);
@@ -228,7 +247,7 @@
             // SceneEditor_previe
             // 
             this.SceneEditor_previe.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.SceneEditor_previe.Location = new System.Drawing.Point(281, 63);
+            this.SceneEditor_previe.Location = new System.Drawing.Point(286, 63);
             this.SceneEditor_previe.Name = "SceneEditor_previe";
             this.SceneEditor_previe.Size = new System.Drawing.Size(720, 400);
             this.SceneEditor_previe.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -343,15 +362,6 @@
             this.label4.TabIndex = 19;
             this.label4.Text = "Информация о кадре";
             // 
-            // AddText_tab
-            // 
-            this.AddText_tab.Location = new System.Drawing.Point(4, 22);
-            this.AddText_tab.Name = "AddText_tab";
-            this.AddText_tab.Size = new System.Drawing.Size(256, 453);
-            this.AddText_tab.TabIndex = 1;
-            this.AddText_tab.Text = "Добавить текст";
-            this.AddText_tab.UseVisualStyleBackColor = true;
-            // 
             // Frame_text
             // 
             this.Frame_text.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -361,6 +371,48 @@
             this.Frame_text.Size = new System.Drawing.Size(720, 83);
             this.Frame_text.TabIndex = 0;
             this.Frame_text.TextChanged += new System.EventHandler(this.Frame_text_TextChanged);
+            // 
+            // Characters_names_list
+            // 
+            this.Characters_names_list.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Characters_names_list.FormattingEnabled = true;
+            this.Characters_names_list.Items.AddRange(new object[] {
+            ""});
+            this.Characters_names_list.Location = new System.Drawing.Point(6, 20);
+            this.Characters_names_list.Name = "Characters_names_list";
+            this.Characters_names_list.Size = new System.Drawing.Size(122, 145);
+            this.Characters_names_list.TabIndex = 3;
+            // 
+            // Character_sprites_list
+            // 
+            this.Character_sprites_list.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Character_sprites_list.FormattingEnabled = true;
+            this.Character_sprites_list.Items.AddRange(new object[] {
+            ""});
+            this.Character_sprites_list.Location = new System.Drawing.Point(6, 175);
+            this.Character_sprites_list.Name = "Character_sprites_list";
+            this.Character_sprites_list.Size = new System.Drawing.Size(122, 262);
+            this.Character_sprites_list.TabIndex = 4;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(131, 152);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(82, 13);
+            this.label5.TabIndex = 10;
+            this.label5.Text = "Предпросмотр";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox1.InitialImage = global::Novel_Core_Alpha.Properties.Resources.Image_wait;
+            this.pictureBox1.Location = new System.Drawing.Point(131, 175);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(122, 152);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 9;
+            this.pictureBox1.TabStop = false;
             // 
             // NC_Editor
             // 
@@ -389,12 +441,15 @@
             this.AddBackground_tab.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Backgrounds_previe)).EndInit();
             this.groupBox1.ResumeLayout(false);
+            this.AddCharacter_tab.ResumeLayout(false);
+            this.AddCharacter_tab.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SceneEditor_previe)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SelectedFrame)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -429,8 +484,12 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button AddFrame_button;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TabPage AddText_tab;
+        private System.Windows.Forms.TabPage AddCharacter_tab;
         private System.Windows.Forms.TextBox Frame_text;
+        private System.Windows.Forms.ListBox Character_sprites_list;
+        private System.Windows.Forms.ListBox Characters_names_list;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 
