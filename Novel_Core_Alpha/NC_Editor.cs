@@ -236,6 +236,24 @@ namespace Novel_Core_Alpha
         private void ContentFolderPathStoke_TextChanged(object sender, EventArgs e)
         {
             ReadBackgroundsFiles();
+            ReadCharacterFolders();
+        }
+
+        public void ReadCharacterFolders()
+        {
+            if (Directory.Exists($"{contentFolderPath}\\Characters"))
+            {
+                string dirr;
+                Characters_combobox.Items.Clear();
+                //Массив содержит имена всех файлов что мы выбрали
+                string[] directory = Directory.GetDirectories($"{contentFolderPath}\\Characters");//Считываем в массив имена всех файлов в папке
+
+                foreach (string dir in directory)
+                {
+                    Characters_combobox.Items.Add(Path.GetFileName(dir));
+                }
+
+            }
         }
 
         //Кнопка удаления заднего фона из коллекции
