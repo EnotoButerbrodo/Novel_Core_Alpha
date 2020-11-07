@@ -464,23 +464,26 @@ namespace Novel_Core_Alpha
         private void ReadZip_button_Click(object sender, EventArgs e)
         {
             string zipPath = @"C:\Users\Игорь\Desktop\done\NCE_content\images.zip";
+
             using (ZipArchive archive = ZipFile.Open(zipPath, ZipArchiveMode.Read))
             {
-                foreach (var entry in archive.Entries)
+                var result = from currEntry in archive.Entries
+                             where currEntry.FullName.Contains("Class")
+                             select currEntry;
+                foreach(var entry in result)
                 {
-                    if (entry.FullName.Contains("Monika") & entry.Name.Contains(".png"))
-                    {
-                        Frame_previe.Items.Add(entry.Name);
-                        entry.ExtractToFile($"{contentFolderPath}\\{entry.Name}", true);
-                    }
-
-                    //Frame_previe.Items.Add(entry.FullName);
-                    //if (entry.FullName.Contains("Backgrounds"))
-                    //{
-                    //    MessageBox.Show("1");
-                    //    entry.ExtractToFile($"{contentFolderPath}\\{entry.FullName}", true);
-                    //}
+                    entry.ExtractToFile($"{contentFolderPath}\\{entry.Name}", true);
                 }
+                //foreach (var entry in archive.Entries)
+                //{
+                //    if (entry.FullName.Contains("Monika") & entry.Name != "")
+                //    {
+                //        Frame_previe.Items.Add(entry.Name);
+                //        entry.ExtractToFile($"{contentFolderPath}\\{entry.Name}", true);
+                //        var image = Image.FromFile(entry.FullName);
+                //        SceneEditor_previe.Image = image;
+                //    }
+                //}
 
             }
         }
