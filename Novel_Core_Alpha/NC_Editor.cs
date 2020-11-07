@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Win32;
+using System.IO.Compression;
 
 namespace Novel_Core_Alpha
 {
@@ -431,7 +432,7 @@ namespace Novel_Core_Alpha
         {
             string[] files = Directory.GetFiles($"{contentFolderPath}\\{CFDirectories[(int)CFDirectoryName.Characters]}\\" +
                 $"{Characters_combobox.Items[Characters_combobox.SelectedIndex]}"); 
-            imageList1.ImageSize = new Size(256, 256);
+            imageList1.ImageSize = new Size(128, 128);
 
             for(int i = 0; i < files.Length; i++)
             {
@@ -442,6 +443,20 @@ namespace Novel_Core_Alpha
             }
             SceneEditor_previe.Image = imageList1.Images[0];
             listView2.SmallImageList = imageList1;
+        }
+
+        private void Zip_button_Click(object sender, EventArgs e)
+        {
+            string startPath = @"C:\Users\Игорь\Desktop\done\NCE_content\Backgrounds";
+            string zipPath = @"C:\Users\Игорь\Desktop\done\NCE_content\images.zip";
+            ZipFile.CreateFromDirectory(startPath, zipPath);
+        }
+
+        private void UnZip_button_Click(object sender, EventArgs e)
+        {
+            string startPath = @"C:\Users\Игорь\Desktop\done\NCE_content\Backgrounds2";
+            string zipPath = @"C:\Users\Игорь\Desktop\done\NCE_content\images.zip";
+            ZipFile.ExtractToDirectory(zipPath, startPath);
         }
 
         //Добавление нового фрейма в проект
