@@ -505,16 +505,17 @@ namespace Novel_Core_Alpha
                 {
                     if (entry.FullName.Contains(Folder) & entry.Name == Name)
                     {
-                        using (MemoryStream ms = new MemoryStream())
+                        try
                         {
-                            try
+                            using (MemoryStream mem = new MemoryStream())
                             {
-
+                                entry.Open().CopyTo(mem);
+                                SceneEditor_previe.Image = Image.FromStream(mem);
                             }
-                            catch (Exception ex)
-                            {
-                                MessageBox.Show(ex.Message);
-                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
                         }
                     }
                 }
