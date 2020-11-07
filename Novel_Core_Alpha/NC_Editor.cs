@@ -32,6 +32,7 @@ namespace Novel_Core_Alpha
         //
         List<string> backgrounds = new List<string>(); //Содержит список доступных фонов
         List<string> texts = new List<string>(); //Список допступных текстов
+        List<Image> t = new List<Image>();
         List<Frame> curr_scene = new List<Frame>();//Этот лист содержит текущую сцену
         List<PictureBox> curr_scene_frames = new List<PictureBox>(); //Храняться кадры для отображения
         //
@@ -460,62 +461,57 @@ namespace Novel_Core_Alpha
 
         private void UnZip_button_Click(object sender, EventArgs e)
         {
-            ReadDataFromZip(@"C:\Users\Игорь\Desktop\done\NCE_content\images.zip", "Backgrounds", "Class1.png");
-            string startPath = @"C:\Users\Игорь\Desktop\done\NCE_content\Backgrounds2";
-            Directory.CreateDirectory(startPath);
-            string zipPath = @"C:\Users\Игорь\Desktop\done\NCE_content\images.nca";
-            ZipFile.ExtractToDirectory(zipPath, startPath);
+            string zipPath = @"C:\Users\Игорь\Desktop\done\NCE_content\images.zip";
+            //ReadImageFromZip(@"C:\Users\Игорь\Desktop\done\NCE_content\images.zip", "Backgrounds", "Class1.png",t);
+            //SceneEditor_previe.Image = t[0];
+            //string startPath = @"C:\Users\Игорь\Desktop\done\NCE_content\Backgrounds2";
+            //Directory.CreateDirectory(startPath);
+            //string zipPath = @"C:\Users\Игорь\Desktop\done\NCE_content\images.nca";
+            //ZipFile.ExtractToDirectory(zipPath, startPath);
+            ReadImageFromZip(zipPath, "Backgrounds", "", t);
+            SceneEditor_previe.Image = t[3];
         }
 
         private void ReadZip_button_Click(object sender, EventArgs e)
         {
             string zipPath = @"C:\Users\Игорь\Desktop\done\NCE_content\images.zip";
 
-            using (ZipArchive archive = ZipFile.Open(zipPath, ZipArchiveMode.Read))
-            {
-                foreach (var entry in archive.Entries)
-                {
-                    if (entry.FullName.Contains("Monika") & entry.Name == "Default.png")
-                    {
-                        try
-                        {
-                            using(MemoryStream mem = new MemoryStream())
-                            {
-                                entry.Open().CopyTo(mem);
-                                SceneEditor_previe.Image = Image.FromStream(mem);
-                            }
-                        }
-                        catch(Exception ex)
-                        {
-                            MessageBox.Show(ex.Message);
-                        }
-
-                        //Frame_previe.Items.Add(entry.Name);
-                        //entry.ExtractToFile($"{contentFolderPath}\\{entry.Name}", true);
-
-                    }
-                }
-            }
+            //using (ZipArchive archive = ZipFile.Open(zipPath, ZipArchiveMode.Read))
+            //{
+            //    foreach (var entry in archive.Entries)
+            //    {
+            //        if (entry.FullName.Contains("Monika") & entry.Name.Contains("Default.png"))
+            //        {
+            //            try
+            //            {
+            //                SceneEditor_previe.Image = Image.FromStream(entry.Open());
+            //            }
+            //            catch(Exception ex)
+            //            {
+            //                MessageBox.Show(ex.Message);
+            //            }
+            //        }
+            //    }
+            //}
+            ReadImageFromZip(zipPath, "Monika", "Default.png", t);
+            SceneEditor_previe.Image = t[0];
         }
-        void ReadDataFromZip(string zipPath, string Folder, string Name)
+        void ReadImageFromZip(string zipPath, string Folder, string Name, List<Image> list)
         {
             using (ZipArchive archive = ZipFile.Open(zipPath, ZipArchiveMode.Read))
             {
                 foreach (var entry in archive.Entries)
                 {
-                    if (entry.FullName.Contains(Folder) & entry.Name == Name)
+                    if (entry.FullName.Contains(Folder) & entry.Name.Contains(Name))
                     {
                         try
                         {
-                            using (MemoryStream mem = new MemoryStream())
-                            {
-                                entry.Open().CopyTo(mem);
-                                SceneEditor_previe.Image = Image.FromStream(mem);
-                            }
+ 
+                            list.Add(Image.FromStream(entry.Open()));
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show(ex.Message);
+                            MessageBox.Show(ex.Message + "Hui");
                         }
                     }
                 }
