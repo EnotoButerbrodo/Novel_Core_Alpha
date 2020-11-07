@@ -13,6 +13,7 @@ using System.Windows.Forms;
 using Microsoft.Win32;
 using System.IO.Compression;
 
+
 namespace Novel_Core_Alpha
 {
 
@@ -448,7 +449,7 @@ namespace Novel_Core_Alpha
         private void Zip_button_Click(object sender, EventArgs e)
         {
             string startPath = @"C:\Users\Игорь\Desktop\done\NCE_content\Backgrounds";
-            string zipPath = @"C:\Users\Игорь\Desktop\done\NCE_content\images.zip";
+            string zipPath = @"C:\Users\Игорь\Desktop\done\NCE_content\images.nca";
             ZipFile.CreateFromDirectory(startPath, zipPath, CompressionLevel.Fastest, false);
         }
 
@@ -456,8 +457,32 @@ namespace Novel_Core_Alpha
         {
             string startPath = @"C:\Users\Игорь\Desktop\done\NCE_content\Backgrounds2";
             Directory.CreateDirectory(startPath);
-            string zipPath = @"C:\Users\Игорь\Desktop\done\NCE_content\images.zip";
+            string zipPath = @"C:\Users\Игорь\Desktop\done\NCE_content\images.nca";
             ZipFile.ExtractToDirectory(zipPath, startPath);
+        }
+
+        private void ReadZip_button_Click(object sender, EventArgs e)
+        {
+            string zipPath = @"C:\Users\Игорь\Desktop\done\NCE_content\images.zip";
+            using (ZipArchive archive = ZipFile.Open(zipPath, ZipArchiveMode.Read))
+            {
+                foreach (var entry in archive.Entries)
+                {
+                    if (entry.FullName.Contains("Monika") & entry.Name.Contains(".png"))
+                    {
+                        Frame_previe.Items.Add(entry.Name);
+                        entry.ExtractToFile($"{contentFolderPath}\\{entry.Name}", true);
+                    }
+
+                    //Frame_previe.Items.Add(entry.FullName);
+                    //if (entry.FullName.Contains("Backgrounds"))
+                    //{
+                    //    MessageBox.Show("1");
+                    //    entry.ExtractToFile($"{contentFolderPath}\\{entry.FullName}", true);
+                    //}
+                }
+
+            }
         }
 
         //Добавление нового фрейма в проект
