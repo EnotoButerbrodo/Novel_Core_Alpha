@@ -449,12 +449,13 @@ namespace Novel_Core_Alpha
         {
             string startPath = @"C:\Users\Игорь\Desktop\done\NCE_content\Backgrounds";
             string zipPath = @"C:\Users\Игорь\Desktop\done\NCE_content\images.zip";
-            ZipFile.CreateFromDirectory(startPath, zipPath);
+            ZipFile.CreateFromDirectory(startPath, zipPath, CompressionLevel.Fastest, false);
         }
 
         private void UnZip_button_Click(object sender, EventArgs e)
         {
             string startPath = @"C:\Users\Игорь\Desktop\done\NCE_content\Backgrounds2";
+            Directory.CreateDirectory(startPath);
             string zipPath = @"C:\Users\Игорь\Desktop\done\NCE_content\images.zip";
             ZipFile.ExtractToDirectory(zipPath, startPath);
         }

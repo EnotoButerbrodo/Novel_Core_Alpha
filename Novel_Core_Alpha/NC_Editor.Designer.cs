@@ -416,9 +416,9 @@
             // 
             // Zip_button
             // 
-            this.Zip_button.Location = new System.Drawing.Point(1108, 372);
+            this.Zip_button.Location = new System.Drawing.Point(1090, 372);
             this.Zip_button.Name = "Zip_button";
-            this.Zip_button.Size = new System.Drawing.Size(83, 51);
+            this.Zip_button.Size = new System.Drawing.Size(101, 51);
             this.Zip_button.TabIndex = 20;
             this.Zip_button.Text = "Архивировать";
             this.Zip_button.UseVisualStyleBackColor = true;
