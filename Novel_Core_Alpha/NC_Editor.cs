@@ -459,7 +459,7 @@ namespace Novel_Core_Alpha
             ZipFile.CreateFromDirectory(startPath, zipPath, CompressionLevel.Fastest, false);
         }
 
-        private void UnZip_button_Click(object sender, EventArgs e)
+        async private void UnZip_button_Click(object sender, EventArgs e)
         {
             string zipPath = @"C:\Users\Игорь\Desktop\done\NCE_content\images.zip";
             //ReadImageFromZip(@"C:\Users\Игорь\Desktop\done\NCE_content\images.zip", "Backgrounds", "Class1.png",t);
@@ -468,8 +468,12 @@ namespace Novel_Core_Alpha
             //Directory.CreateDirectory(startPath);
             //string zipPath = @"C:\Users\Игорь\Desktop\done\NCE_content\images.nca";
             //ZipFile.ExtractToDirectory(zipPath, startPath);
-            ReadImageFromZip(zipPath, "Backgrounds", "", t);
-            SceneEditor_previe.Image = t[3];
+            ReadImageFromZip(zipPath, "Backgrounds", "Class", t);
+            foreach(var image in t)
+            {
+                SceneEditor_previe.Image = image;
+                await Task.Delay(1000);
+            }
         }
 
         private void ReadZip_button_Click(object sender, EventArgs e)
