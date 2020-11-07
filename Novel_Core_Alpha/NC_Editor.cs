@@ -14,6 +14,7 @@ using Microsoft.Win32;
 using System.IO.Compression;
 
 
+
 namespace Novel_Core_Alpha
 {
 
@@ -77,6 +78,7 @@ namespace Novel_Core_Alpha
             SetBackground_button.Enabled = false;
             Delete_background_button.Enabled = false;//Деактивируем кнопку
             Frame_text.Enabled = false;
+            
 
         }
         
@@ -455,6 +457,7 @@ namespace Novel_Core_Alpha
 
         private void UnZip_button_Click(object sender, EventArgs e)
         {
+            ReadDataFromZip(@"C:\Users\Игорь\Desktop\done\NCE_content\images.zip", "Backgrounds", "Class1.png");
             string startPath = @"C:\Users\Игорь\Desktop\done\NCE_content\Backgrounds2";
             Directory.CreateDirectory(startPath);
             string zipPath = @"C:\Users\Игорь\Desktop\done\NCE_content\images.nca";
@@ -467,25 +470,42 @@ namespace Novel_Core_Alpha
 
             using (ZipArchive archive = ZipFile.Open(zipPath, ZipArchiveMode.Read))
             {
-                var result = from currEntry in archive.Entries
-                             where currEntry.FullName.Contains("Class")
-                             select currEntry;
-                foreach(var entry in result)
+                foreach (var entry in archive.Entries)
                 {
-                    entry.ExtractToFile($"{contentFolderPath}\\{entry.Name}", true);
+                    if (entry.FullName.Contains("Monika") & entry.Name != "")
+                    {
+                        Frame_previe.Items.Add(entry.Name);
+                        entry.ExtractToFile($"{contentFolderPath}\\{entry.Name}", true);
+                    }
                 }
-                //foreach (var entry in archive.Entries)
-                //{
-                //    if (entry.FullName.Contains("Monika") & entry.Name != "")
-                //    {
-                //        Frame_previe.Items.Add(entry.Name);
-                //        entry.ExtractToFile($"{contentFolderPath}\\{entry.Name}", true);
-                //        var image = Image.FromFile(entry.FullName);
-                //        SceneEditor_previe.Image = image;
-                //    }
-                //}
 
             }
+        }
+        void ReadDataFromZip(string zipPath, string Folder, string Name)
+        {
+
+            using (ZipArchive archive = ZipFile.Open(zipPath, ZipArchiveMode.Read))
+            {
+                foreach (var entry in archive.Entries)
+                {
+                    if (entry.FullName.Contains(Folder) & entry.Name == Name)
+                    {
+                        using (MemoryStream ms = new MemoryStream())
+                        {
+                            try
+                            {
+                               
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(ex.Message);
+                            }
+                        }
+                    }
+                }
+
+            }
+
         }
 
         //Добавление нового фрейма в проект
