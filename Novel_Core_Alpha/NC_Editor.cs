@@ -4,14 +4,17 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
+using System.Net;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Win32;
-using System.IO.Compression;
+
+
 
 
 
@@ -472,18 +475,30 @@ namespace Novel_Core_Alpha
             {
                 foreach (var entry in archive.Entries)
                 {
-                    if (entry.FullName.Contains("Monika") & entry.Name != "")
+                    if (entry.FullName.Contains("Monika") & entry.Name == "Default.png")
                     {
-                        Frame_previe.Items.Add(entry.Name);
-                        entry.ExtractToFile($"{contentFolderPath}\\{entry.Name}", true);
+                        try
+                        {
+                            using(MemoryStream mem = new MemoryStream())
+                            {
+                                entry.Open().CopyTo(mem);
+                                SceneEditor_previe.Image = Image.FromStream(mem);
+                            }
+                        }
+                        catch(Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+
+                        //Frame_previe.Items.Add(entry.Name);
+                        //entry.ExtractToFile($"{contentFolderPath}\\{entry.Name}", true);
+
                     }
                 }
-
             }
         }
         void ReadDataFromZip(string zipPath, string Folder, string Name)
         {
-
             using (ZipArchive archive = ZipFile.Open(zipPath, ZipArchiveMode.Read))
             {
                 foreach (var entry in archive.Entries)
@@ -494,7 +509,7 @@ namespace Novel_Core_Alpha
                         {
                             try
                             {
-                               
+
                             }
                             catch (Exception ex)
                             {
@@ -503,9 +518,18 @@ namespace Novel_Core_Alpha
                         }
                     }
                 }
-
             }
+        }
 
+
+        private void LoadImageZip_button_Click(object sender, EventArgs e)
+        {
+            Directory.SetCurrentDirectory(@"C:\Users\Игорь\Desktop");
+            using (Ionic.Zip.ZipFile zip = new Ionic.Zip.ZipFile())
+            {
+                zip.AddItem(@"2.PNG");
+                zip.Save($"{contentFolderPath}\\Package.zip");
+            }
         }
 
         //Добавление нового фрейма в проект

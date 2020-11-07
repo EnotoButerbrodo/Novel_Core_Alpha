@@ -66,6 +66,7 @@
             this.Zip_button = new System.Windows.Forms.Button();
             this.UnZip_button = new System.Windows.Forms.Button();
             this.ReadZip_button = new System.Windows.Forms.Button();
+            this.LoadImageZip_button = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.AddBackground_tab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Backgrounds_previe)).BeginInit();
@@ -436,7 +437,7 @@
             // 
             // ReadZip_button
             // 
-            this.ReadZip_button.Location = new System.Drawing.Point(1090, 429);
+            this.ReadZip_button.Location = new System.Drawing.Point(1087, 429);
             this.ReadZip_button.Name = "ReadZip_button";
             this.ReadZip_button.Size = new System.Drawing.Size(101, 51);
             this.ReadZip_button.TabIndex = 20;
@@ -444,12 +445,23 @@
             this.ReadZip_button.UseVisualStyleBackColor = true;
             this.ReadZip_button.Click += new System.EventHandler(this.ReadZip_button_Click);
             // 
+            // LoadImageZip_button
+            // 
+            this.LoadImageZip_button.Location = new System.Drawing.Point(1087, 486);
+            this.LoadImageZip_button.Name = "LoadImageZip_button";
+            this.LoadImageZip_button.Size = new System.Drawing.Size(101, 51);
+            this.LoadImageZip_button.TabIndex = 20;
+            this.LoadImageZip_button.Text = "Чтение картинки из архива";
+            this.LoadImageZip_button.UseVisualStyleBackColor = true;
+            this.LoadImageZip_button.Click += new System.EventHandler(this.LoadImageZip_button_Click);
+            // 
             // NC_Editor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1284, 721);
             this.Controls.Add(this.UnZip_button);
+            this.Controls.Add(this.LoadImageZip_button);
             this.Controls.Add(this.ReadZip_button);
             this.Controls.Add(this.Zip_button);
             this.Controls.Add(this.Frame_text);
@@ -525,6 +537,7 @@
         private System.Windows.Forms.Button Zip_button;
         private System.Windows.Forms.Button UnZip_button;
         private System.Windows.Forms.Button ReadZip_button;
+        private System.Windows.Forms.Button LoadImageZip_button;
     }
 }
 
