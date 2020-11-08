@@ -62,8 +62,8 @@ namespace Novel_Core_Alpha
         {
             InitializeComponent();
             //Чтение из регистра адреса папки контента
-            {
-                object buff = AddContentKey.GetValue("ContentFolderPath");
+            #region Registry
+            object buff = AddContentKey.GetValue("ContentFolderPath");
                 //Если параметр адреса папки не существует
                 if (buff == null)
                     AddContentKey.SetValue("ContentFolderPath", "None");
@@ -82,14 +82,12 @@ namespace Novel_Core_Alpha
                         contentFolderPath = "";
                     }
                 }
+            #endregion
 
-            }
             SaveScene_menu_button.Enabled = false;
             SetBackground_button.Enabled = false;
             Delete_background_button.Enabled = false;//Деактивируем кнопку
             Frame_text.Enabled = false;
-            
-
         }
         
 
@@ -111,8 +109,97 @@ namespace Novel_Core_Alpha
                 }          
             }
         }
+        void ReadImageFromZip(string zipPath, string Folder, List<string> needingImagesList, List<Image> image_list)
+        {
+            using (ZipArchive archive = ZipFile.Open(zipPath, ZipArchiveMode.Read))
+            {
+                try
+                {
+                    foreach (var entry in archive.Entries)
+                    {
 
-        //Выбор или создание папки контента
+                        if (entry.FullName.Contains(Folder) & needingImagesList.Contains(entry.Name))
+                        {
+                            Frame_previe.Items.Add(entry.Name);
+                            Frame_previe.Items.Add(entry.FullName);
+                            Frame_previe.Items.Add(entry.FullName.Contains(Folder));
+                            Frame_previe.Items.Add(needingImagesList.Contains(entry.Name));
+                            try
+                            {
+                                image_list.Add(Image.FromStream(entry.Open()));
+                                needingImagesList.RemoveAt(needingImagesList.FindIndex(item => item == entry.Name));
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(ex.Message + "Hui");
+                            }
+                        }
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+        async private void LoadListToFramesPanel()
+        {
+            curr_scene_frames.Clear();//Очишаем текучий список для работы со сценой
+            this.FramesPanel.Controls.Clear();//Ощищаем панель для отображения фреймов
+
+            for (int i = 0; i < curr_scene.Count; i++)
+            {
+                curr_scene_frames.Add(new PictureBox());
+                curr_scene_frames[i].Width = 240;
+                curr_scene_frames[i].Height = 120;
+                if (i == 0)
+                    curr_scene_frames[i].Location = new Point(10, 10);
+                else
+                    curr_scene_frames[i].Location = new Point(curr_scene_frames[i - 1].Location.X +
+                        curr_scene_frames[i - 1].Width + 5,
+                        curr_scene_frames[i - 1].Location.Y);
+
+                curr_scene_frames[i].Name = $"Fr{i}";
+                curr_scene_frames[i].Tag = i;
+                curr_scene_frames[i].BackColor = Color.Black;
+                curr_scene_frames[i].SizeMode = PictureBoxSizeMode.Zoom;
+                curr_scene_frames[i].Click += new System.EventHandler(this.Frame_Click);
+                this.FramesPanel.Controls.Add(curr_scene_frames[i]);
+            }
+            await Task.Run(() =>
+            {
+                for (int i = 0; i < curr_scene_frames.Count; i++)
+                {
+                    if (File.Exists(curr_scene[i].background))
+                        using (FileStream stream = new FileStream(curr_scene[i].background,
+                               FileMode.Open,
+                               FileAccess.Read))
+                        {
+                            curr_scene_frames[i].Image = Image.FromStream(stream);
+                        }
+                    else curr_scene_frames[i].Image = null;
+                }
+            });
+        }
+        private string CreateContentFolder(string path)
+        {
+            path += $"\\{contentFolderName}";
+            Directory.CreateDirectory(path);
+            foreach (string dir in CFDirectories)
+            {
+                Directory.CreateDirectory($"{path}\\{dir}");
+            }
+            return path;
+        }
+        void DisplayFrameInfo()
+        {
+            Frame_previe.Items.Clear();
+            Frame_previe.Items.Add("Задний фон: ");
+            Frame_previe.Items.Add(Path.GetFileNameWithoutExtension(curr_scene[selected_frame].background));
+        }
+
+        #region Buttons
         private void ContenFolderSetPath_button_Click(object sender, EventArgs e)
         {
             using (FolderBrowserDialog FBD = new FolderBrowserDialog())
@@ -172,19 +259,6 @@ namespace Novel_Core_Alpha
            // ReadBackgroundsFiles();
         }
 
-        //Создание новой пустой папки контента
-        private string CreateContentFolder(string path)
-        {
-            path += $"\\{contentFolderName}";
-            Directory.CreateDirectory(path);
-            foreach(string dir in CFDirectories)
-            {
-                Directory.CreateDirectory($"{path}\\{dir}");
-            }
-            return path;
-        }
-
-        //Добавить задний фон в библиотеку
         private void Add_background_button_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog opd = new OpenFileDialog())
@@ -195,7 +269,8 @@ namespace Novel_Core_Alpha
                 string newPath; //Храним новый путь до файла
                 try
                 {
-                    if (opd.ShowDialog() == DialogResult.OK) {
+                    if (opd.ShowDialog() == DialogResult.OK)
+                    {
                         foreach (string path in opd.FileNames)
                         {
                             try
@@ -237,8 +312,136 @@ namespace Novel_Core_Alpha
                 }
             }
         }
+        private void Delete_background_button_Click(object sender, EventArgs e)
+        {
+            int buff = Backgrounds_list.SelectedIndex;//Сохраняем текущий выбранный индекс
+            Backgrounds_previe.Image = Backgrounds_previe.InitialImage;//На превью ставим картинку ожидания
 
-        //Обработка выбора элемента списка с задними фонами
+            File.Delete(backgrounds[buff]); //Удаляем файл из папки
+            backgrounds.RemoveAt(buff);//Удаляем из списка ресурсов
+            Backgrounds_list.Items.RemoveAt(buff); //Удаляем из списка на отображение
+            if (Backgrounds_list.SelectedIndex >= 0)
+                Backgrounds_list.SelectedIndex--;
+            else
+                Backgrounds_list.SelectedIndex = 0;
+        }
+        private void SetBackground_button_Click(object sender, EventArgs e)
+        {
+            if (Backgrounds_list.SelectedIndex != -1)
+            {
+                SceneEditor_previe.Image = Backgrounds_previe.Image;
+                curr_scene[selected_frame].background = backgrounds[Backgrounds_list.SelectedIndex];
+                curr_scene_frames[selected_frame].Image = SceneEditor_previe.Image;
+                DisplayFrameInfo();
+            }
+        }
+        private void saveScene_menu_button_Click(object sender, EventArgs e)
+        {
+            using (FileStream fs = new FileStream(curr_scene_path, FileMode.Create))
+            {
+                formatter.Serialize(fs, curr_scene);
+            }
+        }
+        private void OpenScene_menu_button_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog opd = new OpenFileDialog())
+            {
+                selected_frame = selected_buff = 0; //Обнуление текущего выбранного кадра
+                SelectedFrame.Value = 0;
+                Frame_previe.Items.Clear();
+                opd.Filter = "Сцена|*.scene";
+                opd.Title = "Выбирай файл";
+                opd.InitialDirectory = $"{contentFolderPath}\\{CFDirectories[(int)CFDirectoryName.Scenes]}";
+                if (opd.ShowDialog() == DialogResult.OK)
+                {
+                    using (FileStream fs = new FileStream(opd.FileName, FileMode.Open))
+                    {
+                        curr_scene = (List<Frame>)formatter.Deserialize(fs);
+                        curr_scene_path = opd.FileName;
+                        SaveScene_menu_button.Enabled = true;
+                    }
+                }
+                curr_scene_label.Text = $"Текущая сцена: {Path.GetFileNameWithoutExtension(opd.FileName)}";
+                LoadListToFramesPanel();
+            }
+        }
+        private void SaveAsNewScene_menu_button_Click(object sender, EventArgs e)
+        {
+            using (SaveFileDialog sfd = new SaveFileDialog())
+            {
+                sfd.Filter = "Сцена|*.scene";
+                sfd.Title = "Выбирай файлы";
+                sfd.DefaultExt = ".scene";
+                sfd.InitialDirectory = $"{contentFolderPath}\\{CFDirectories[(int)CFDirectoryName.Scenes]}";
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    using (FileStream fs = new FileStream(sfd.FileName, FileMode.Create))
+                    {
+                        formatter.Serialize(fs, curr_scene);
+                    }
+                    curr_scene_path = sfd.FileName;
+                }
+            }
+        }
+        private void Zip_button_Click(object sender, EventArgs e)
+        {
+            string startPath = @"C:\Users\Игорь\Desktop\done\NCE_content\Backgrounds";
+            string zipPath = @"C:\Users\Игорь\Desktop\done\NCE_content\images.nca";
+            ZipFile.CreateFromDirectory(startPath, zipPath, CompressionLevel.Fastest, false);
+        }
+        async private void UnZip_button_Click(object sender, EventArgs e)
+        {
+            string zipPath = @"C:\Users\Игорь\Desktop\done\NCE_content\images.zip";
+            //ReadImageFromZip(zipPath, "Backgrounds", "", t);
+            foreach (var image in t)
+            {
+                SceneEditor_previe.Image = image;
+                await Task.Delay(1000);
+            }
+        }
+        private void ReadZip_button_Click(object sender, EventArgs e)
+        {
+            string zipPath = @"C:\Users\Игорь\Desktop\done\NCE_content\images.zip";
+            ReadImageFromZip(zipPath, "Backgrounds", need_images, t);
+            foreach (var im in t)
+            {
+                SceneEditor_previe.Image = im;
+            }
+        }
+        private void LoadImageZip_button_Click(object sender, EventArgs e)
+        {
+            Directory.SetCurrentDirectory(@"C:\Users\Игорь\Desktop");
+            using (Ionic.Zip.ZipFile zip = new Ionic.Zip.ZipFile())
+            {
+                zip.AddItem(@"2.PNG");
+                zip.Save($"{contentFolderPath}\\Package.zip");
+            }
+        }
+        private void AddFrame_button_Click(object sender, EventArgs e)
+        {
+            curr_scene.Add(new Frame());
+            curr_scene_frames.Add(new PictureBox());
+            int newframe = curr_scene_frames.Count - 1;
+            curr_scene_frames[newframe].Width = 240;
+            curr_scene_frames[newframe].Height = 120;
+            if (newframe == 0)
+                curr_scene_frames[newframe].Location = new Point(10, 10);
+            else
+                curr_scene_frames[newframe].Location = new Point(
+                    curr_scene_frames[newframe - 1].Location.X + curr_scene_frames[newframe - 1].Width + 5,
+                    curr_scene_frames[newframe - 1].Location.Y
+                    );
+
+            curr_scene_frames[newframe].Name = $"Fr{newframe}";
+            curr_scene_frames[newframe].Tag = newframe;
+            curr_scene_frames[newframe].BackColor = Color.Black;
+            curr_scene_frames[newframe].SizeMode = PictureBoxSizeMode.Zoom;
+            curr_scene_frames[newframe].Click += new System.EventHandler(this.Frame_Click);
+            this.FramesPanel.Controls.Add(curr_scene_frames[newframe]);
+        }
+        #endregion
+
+
         async private void Backgrounds_list_SelectedIndexChanged(object sender, EventArgs e)
         {
             Delete_background_button.Enabled = true;//Активируем кнопку удалить фон
@@ -259,7 +462,6 @@ namespace Novel_Core_Alpha
             catch { };
         }
 
-        //При обновлении путь до папки контента заново считываем все доступные файлы
         private void ContentFolderPathStoke_TextChanged(object sender, EventArgs e)
         {
             ReadBackgroundsFiles();
@@ -282,128 +484,6 @@ namespace Novel_Core_Alpha
             }
         }
 
-        //Кнопка удаления заднего фона из коллекции
-        private void Delete_background_button_Click(object sender, EventArgs e)
-        {
-            int buff = Backgrounds_list.SelectedIndex;//Сохраняем текущий выбранный индекс
-            Backgrounds_previe.Image = Backgrounds_previe.InitialImage;//На превью ставим картинку ожидания
-  
-            File.Delete(backgrounds[buff]); //Удаляем файл из папки
-            backgrounds.RemoveAt(buff);//Удаляем из списка ресурсов
-            Backgrounds_list.Items.RemoveAt(buff); //Удаляем из списка на отображение
-            if (Backgrounds_list.SelectedIndex >= 0)
-                Backgrounds_list.SelectedIndex--;
-            else
-                Backgrounds_list.SelectedIndex = 0;
-        }
-
-        //Установить картинку как фон фрейма
-        private void SetBackground_button_Click(object sender, EventArgs e)
-        {
-            if (Backgrounds_list.SelectedIndex != -1)
-            {
-                SceneEditor_previe.Image = Backgrounds_previe.Image;
-                curr_scene[selected_frame].background = backgrounds[Backgrounds_list.SelectedIndex];
-                curr_scene_frames[selected_frame].Image = SceneEditor_previe.Image;
-                DisplayFrameInfo();
-            }
-        }
-
-        //Сoхранить сцену в файл
-        private void saveScene_menu_button_Click(object sender, EventArgs e)
-        {
-                using (FileStream fs = new FileStream(curr_scene_path, FileMode.Create))
-                {
-                    formatter.Serialize(fs, curr_scene);
-                }
-        }
-
-        //Открытие сохраненной сцены
-        private void OpenScene_menu_button_Click(object sender, EventArgs e)
-        {
-            using (OpenFileDialog opd = new OpenFileDialog())
-            {
-                selected_frame = selected_buff = 0; //Обнуление текущего выбранного кадра
-                SelectedFrame.Value = 0;
-                Frame_previe.Items.Clear();
-                opd.Filter = "Сцена|*.scene";
-                opd.Title = "Выбирай файл";
-                opd.InitialDirectory = $"{contentFolderPath}\\{CFDirectories[(int)CFDirectoryName.Scenes]}";
-                if(opd.ShowDialog() == DialogResult.OK)
-                {
-                    using (FileStream fs = new FileStream(opd.FileName, FileMode.Open))
-                    {
-                        curr_scene = (List<Frame>)formatter.Deserialize(fs);
-                        curr_scene_path = opd.FileName;
-                        SaveScene_menu_button.Enabled = true;
-                    }
-                }
-                curr_scene_label.Text = $"Текущая сцена: {Path.GetFileNameWithoutExtension(opd.FileName)}";
-                LoadListToFramesPanel();
-            }
-        }
-
-        //Сохранение сцены в файл
-        private void SaveAsNewScene_menu_button_Click(object sender, EventArgs e)
-        {
-            using (SaveFileDialog sfd = new SaveFileDialog())
-            {
-                sfd.Filter = "Сцена|*.scene";
-                sfd.Title = "Выбирай файлы";
-                sfd.DefaultExt = ".scene";
-                sfd.InitialDirectory = $"{contentFolderPath}\\{CFDirectories[(int)CFDirectoryName.Scenes]}";
-                if (sfd.ShowDialog() == DialogResult.OK)
-                {
-                    using (FileStream fs = new FileStream(sfd.FileName, FileMode.Create))
-                    {
-                        formatter.Serialize(fs, curr_scene);
-                    }
-                    curr_scene_path = sfd.FileName;
-                }
-              }
-        }
-        
-        //Отображение всех фреймов сцены
-        async private void LoadListToFramesPanel()
-        { 
-            curr_scene_frames.Clear();//Очишаем текучий список для работы со сценой
-            this.FramesPanel.Controls.Clear();//Ощищаем панель для отображения фреймов
-
-            for (int i = 0; i < curr_scene.Count; i++) { 
-                curr_scene_frames.Add(new PictureBox());
-                curr_scene_frames[i].Width = 240;
-                curr_scene_frames[i].Height = 120;
-                if (i == 0)
-                    curr_scene_frames[i].Location = new Point(10,10);
-                else
-                    curr_scene_frames[i].Location = new Point(curr_scene_frames[i - 1].Location.X + 
-                        curr_scene_frames[i - 1].Width + 5,
-                        curr_scene_frames[i - 1].Location.Y);
-
-                curr_scene_frames[i].Name = $"Fr{i}";
-                curr_scene_frames[i].Tag = i;
-                curr_scene_frames[i].BackColor = Color.Black;
-                curr_scene_frames[i].SizeMode = PictureBoxSizeMode.Zoom;
-                curr_scene_frames[i].Click += new System.EventHandler(this.Frame_Click);
-                this.FramesPanel.Controls.Add(curr_scene_frames[i]);
-            }
-            await Task.Run(() =>
-            {
-                for (int i = 0; i < curr_scene_frames.Count; i++)
-                {
-                    if (File.Exists(curr_scene[i].background))
-                        using (FileStream stream = new FileStream(curr_scene[i].background,
-                               FileMode.Open,
-                               FileAccess.Read))
-                        {
-                            curr_scene_frames[i].Image = Image.FromStream(stream);                  
-                        }
-                    else curr_scene_frames[i].Image = null; 
-                }  
-            });
-        }
-
-        //Обработка клика по фрейму
         private void Frame_Click(object sender, EventArgs e)
         {
             SetBackground_button.Enabled = true;
@@ -425,14 +505,6 @@ namespace Novel_Core_Alpha
                 DisplayFrameInfo();
             }
             catch { }
-        }
-
-        //Функция отобразит в опредеённом поле информацию о выбранном фрейме
-        void DisplayFrameInfo()
-        {
-            Frame_previe.Items.Clear();
-            Frame_previe.Items.Add("Задний фон: ");
-            Frame_previe.Items.Add(Path.GetFileNameWithoutExtension(curr_scene[selected_frame].background));
         }
 
         private void Frame_text_TextChanged(object sender, EventArgs e)
@@ -457,103 +529,6 @@ namespace Novel_Core_Alpha
             listView2.SmallImageList = imageList1;
         }
 
-        private void Zip_button_Click(object sender, EventArgs e)
-        {
-            string startPath = @"C:\Users\Игорь\Desktop\done\NCE_content\Backgrounds";
-            string zipPath = @"C:\Users\Игорь\Desktop\done\NCE_content\images.nca";
-            ZipFile.CreateFromDirectory(startPath, zipPath, CompressionLevel.Fastest, false);
-        }
 
-        async private void UnZip_button_Click(object sender, EventArgs e)
-        {
-            string zipPath = @"C:\Users\Игорь\Desktop\done\NCE_content\images.zip";
-            //ReadImageFromZip(zipPath, "Backgrounds", "", t);
-            foreach(var image in t)
-            {
-                SceneEditor_previe.Image = image;
-                await Task.Delay(1000);
-            }
-        }
-
-        private void ReadZip_button_Click(object sender, EventArgs e)
-        {
-            string zipPath = @"C:\Users\Игорь\Desktop\done\NCE_content\images.zip";
-            ReadImageFromZip(zipPath, "Backgrounds", need_images, t);
-            foreach(var im in t)
-            {
-                SceneEditor_previe.Image = im;
-            }
-        }
-
-        void ReadImageFromZip(string zipPath, string Folder,List<string> needingImagesList, List<Image> image_list)
-        {
-            int needIm = 0;
-            using (ZipArchive archive = ZipFile.Open(zipPath, ZipArchiveMode.Read))
-            {
-                try
-                {
-                    foreach (var entry in archive.Entries)
-                    {
-                       
-                        if (entry.FullName.Contains(Folder) & needingImagesList.Contains(entry.Name))
-                        {
-                            Frame_previe.Items.Add(entry.Name);
-                            Frame_previe.Items.Add(entry.FullName);
-                            Frame_previe.Items.Add(entry.FullName.Contains(Folder));
-                            Frame_previe.Items.Add(needingImagesList.Contains(entry.Name));
-                            try
-                            {
-                                image_list.Add(Image.FromStream(entry.Open()));
-                                needingImagesList.RemoveAt(needingImagesList.FindIndex(item => item == entry.Name));
-                            }
-                            catch (Exception ex)
-                            {
-                                MessageBox.Show(ex.Message + "Hui");
-                            }
-                        }
-
-                    }
-                }
-                catch(Exception ex)
-                {
-                    MessageBox.Show(needIm.ToString());
-                }
-            }
-        }
-
-
-        private void LoadImageZip_button_Click(object sender, EventArgs e)
-        {
-            Directory.SetCurrentDirectory(@"C:\Users\Игорь\Desktop");
-            using (Ionic.Zip.ZipFile zip = new Ionic.Zip.ZipFile())
-            {
-                zip.AddItem(@"2.PNG");
-                zip.Save($"{contentFolderPath}\\Package.zip");
-            }
-        }
-
-        //Добавление нового фрейма в проект
-        private void AddFrame_button_Click(object sender, EventArgs e)
-        {
-            curr_scene.Add(new Frame());
-            curr_scene_frames.Add(new PictureBox());
-            int newframe = curr_scene_frames.Count-1;
-            curr_scene_frames[newframe].Width = 240;
-            curr_scene_frames[newframe].Height = 120;
-            if (newframe == 0)
-                curr_scene_frames[newframe].Location = new Point(10, 10);
-            else
-                curr_scene_frames[newframe].Location = new Point(
-                    curr_scene_frames[newframe - 1].Location.X + curr_scene_frames[newframe - 1].Width + 5,
-                    curr_scene_frames[newframe - 1].Location.Y
-                    );
-
-            curr_scene_frames[newframe].Name = $"Fr{newframe}";
-            curr_scene_frames[newframe].Tag = newframe;
-            curr_scene_frames[newframe].BackColor = Color.Black;
-            curr_scene_frames[newframe].SizeMode = PictureBoxSizeMode.Zoom;
-            curr_scene_frames[newframe].Click += new System.EventHandler(this.Frame_Click);
-            this.FramesPanel.Controls.Add(curr_scene_frames[newframe]);
-        }        
     }
 }
