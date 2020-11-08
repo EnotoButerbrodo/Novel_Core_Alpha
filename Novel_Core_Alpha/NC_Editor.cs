@@ -35,6 +35,12 @@ namespace Novel_Core_Alpha
         List<Image> t = new List<Image>();
         List<Frame> curr_scene = new List<Frame>();//Этот лист содержит текущую сцену
         List<PictureBox> curr_scene_frames = new List<PictureBox>(); //Храняться кадры для отображения
+        List<String> need_images = new List<string>() {
+            "Class1.png",
+            "Class2.png",
+            "Koridor.png"
+            };
+        List<String> finding_images = new List<string>();
         //
         BinaryFormatter formatter = new BinaryFormatter();//Эта штука для сериализации
         string[] CFDirectories =
@@ -264,7 +270,6 @@ namespace Novel_Core_Alpha
         {
             if (Directory.Exists($"{contentFolderPath}\\{CFDirectories[(int)CFDirectoryName.Characters]}"))
             {
-                string dirr;
                 Characters_combobox.Items.Clear();
                 //Массив содержит имена всех файлов что мы выбрали
                 string[] directory = Directory.GetDirectories($"{contentFolderPath}\\{CFDirectories[(int)CFDirectoryName.Characters]}");//Считываем в массив имена всех файлов в папке
@@ -462,13 +467,7 @@ namespace Novel_Core_Alpha
         async private void UnZip_button_Click(object sender, EventArgs e)
         {
             string zipPath = @"C:\Users\Игорь\Desktop\done\NCE_content\images.zip";
-            //ReadImageFromZip(@"C:\Users\Игорь\Desktop\done\NCE_content\images.zip", "Backgrounds", "Class1.png",t);
-            //SceneEditor_previe.Image = t[0];
-            //string startPath = @"C:\Users\Игорь\Desktop\done\NCE_content\Backgrounds2";
-            //Directory.CreateDirectory(startPath);
-            //string zipPath = @"C:\Users\Игорь\Desktop\done\NCE_content\images.nca";
-            //ZipFile.ExtractToDirectory(zipPath, startPath);
-            ReadImageFromZip(zipPath, "Backgrounds", "Class", t);
+            //ReadImageFromZip(zipPath, "Backgrounds", "", t);
             foreach(var image in t)
             {
                 SceneEditor_previe.Image = image;
@@ -479,45 +478,45 @@ namespace Novel_Core_Alpha
         private void ReadZip_button_Click(object sender, EventArgs e)
         {
             string zipPath = @"C:\Users\Игорь\Desktop\done\NCE_content\images.zip";
-
-            //using (ZipArchive archive = ZipFile.Open(zipPath, ZipArchiveMode.Read))
-            //{
-            //    foreach (var entry in archive.Entries)
-            //    {
-            //        if (entry.FullName.Contains("Monika") & entry.Name.Contains("Default.png"))
-            //        {
-            //            try
-            //            {
-            //                SceneEditor_previe.Image = Image.FromStream(entry.Open());
-            //            }
-            //            catch(Exception ex)
-            //            {
-            //                MessageBox.Show(ex.Message);
-            //            }
-            //        }
-            //    }
-            //}
-            ReadImageFromZip(zipPath, "Monika", "Default.png", t);
-            SceneEditor_previe.Image = t[0];
+            ReadImageFromZip(zipPath, "Backgrounds", need_images, t);
+            foreach(var im in t)
+            {
+                SceneEditor_previe.Image = im;
+            }
         }
-        void ReadImageFromZip(string zipPath, string Folder, string Name, List<Image> list)
+
+        void ReadImageFromZip(string zipPath, string Folder,List<string> needingImagesList, List<Image> image_list)
         {
+            int needIm = 0;
             using (ZipArchive archive = ZipFile.Open(zipPath, ZipArchiveMode.Read))
             {
-                foreach (var entry in archive.Entries)
+                try
                 {
-                    if (entry.FullName.Contains(Folder) & entry.Name.Contains(Name))
+                    foreach (var entry in archive.Entries)
                     {
-                        try
+                       
+                        if (entry.FullName.Contains(Folder) & needingImagesList.Contains(entry.Name))
                         {
- 
-                            list.Add(Image.FromStream(entry.Open()));
+                            Frame_previe.Items.Add(entry.Name);
+                            Frame_previe.Items.Add(entry.FullName);
+                            Frame_previe.Items.Add(entry.FullName.Contains(Folder));
+                            Frame_previe.Items.Add(needingImagesList.Contains(entry.Name));
+                            try
+                            {
+                                image_list.Add(Image.FromStream(entry.Open()));
+                                needingImagesList.RemoveAt(needingImagesList.FindIndex(item => item == entry.Name));
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(ex.Message + "Hui");
+                            }
                         }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message + "Hui");
-                        }
+
                     }
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(needIm.ToString());
                 }
             }
         }
